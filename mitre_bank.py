@@ -14,6 +14,23 @@ import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
 
+def convert_to_serializable(obj):
+    """Convert numpy/pandas types to native Python types for JSON serialization"""
+    if isinstance(obj, dict):
+        return {key: convert_to_serializable(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_to_serializable(item) for item in obj]
+    elif isinstance(obj, (np.integer, np.int64, np.int32)):
+        return int(obj)
+    elif isinstance(obj, (np.floating, np.float64, np.float32)):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+    elif isinstance(obj, (pd.Series, pd.DataFrame)):
+        return obj.to_dict()
+    else:
+        return obj
+
 # Set display options
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_colwidth', None)
@@ -619,7 +636,7 @@ def main():
     # Statistics JSON
     stats_file = f"{output_prefix}_statistics.json"
     with open(stats_file, 'w') as f:
-        json.dump(stats, f, indent=2)
+        json.dump(convert_to_serializable(stats), f, indent=2)
     print(f"✓ Statistics: {stats_file}")
 
     # Methodology documentation
