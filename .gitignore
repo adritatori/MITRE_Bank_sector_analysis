@@ -1,0 +1,31 @@
+# Analysis output files (auto-generated)
+banking_analysis_*.csv
+banking_analysis_*.png
+banking_analysis_*.json
+banking_analysis_*.txt
+
+# Log files
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
