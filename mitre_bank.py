@@ -1,3 +1,24 @@
+"""
+MITRE ATT&CK Banking Sector Threat Analysis
+
+This script analyzes MITRE ATT&CK techniques used by banking sector threat entities.
+
+KNOWN LIMITATIONS (as of MITRE ATT&CK v14+):
+- Data Sources: The 'x_mitre_data_sources' field was deprecated in ATT&CK v11+.
+  Data sources are now separate objects but NOT linked to techniques in STIX JSON.
+  Result: data_sources field will be empty for all techniques.
+
+- Detection Guidance: The 'x_mitre_detection' field is empty in STIX JSON files.
+  Detection information is now in the separate Analytics framework.
+  Result: detection_available will be False for all techniques.
+
+These limitations do NOT affect the core analysis, which prioritizes techniques
+based on actual threat actor behavior (entity usage, tactics, group diversity).
+
+For data sources and detection guidance, consult the MITRE ATT&CK website directly:
+https://attack.mitre.org/
+"""
+
 import json
 import requests
 import pandas as pd
@@ -155,12 +176,64 @@ def find_banking_entities(objects, bank_entities):
 
     return entity_mapping, entity_names, entity_types
 
+def build_data_source_mappings(objects):
+    """Build efficient mappings for data sources (called once)
+
+    NOTE: As of MITRE ATT&CK v14+, the x_mitre_data_sources field has been deprecated.
+    Data sources are now separate objects (x-mitre-data-source and x-mitre-data-component)
+    but are NOT linked to techniques via relationships in the STIX format.
+
+    This function attempts to extract data sources, but may return empty results
+    due to the current ATT&CK data structure.
+    """
+    # Build data component -> data source mapping
+    component_to_source = {}
+    data_sources = {}
+    technique_to_data_sources = {}
+
+    # First pass: collect all data sources and components
+    for obj in objects:
+        if obj.get('type') == 'x-mitre-data-source':
+            data_sources[obj['id']] = obj.get('name', '')
+        elif obj.get('type') == 'x-mitre-data-component':
+            ds_ref = obj.get('x_mitre_data_source_ref')
+            if ds_ref:
+                component_to_source[obj['id']] = ds_ref
+
+    # Second pass: find relationships (detects) from data-components to techniques
+    for obj in objects:
+        if obj.get('type') == 'relationship' and obj.get('relationship_type') == 'detects':
+            source_ref = obj.get('source_ref', '')
+            target_ref = obj.get('target_ref', '')
+
+            # Check if source is a data component and target is an attack-pattern
+            if source_ref in component_to_source and 'attack-pattern' in target_ref:
+                ds_ref = component_to_source[source_ref]
+                ds_name = data_sources.get(ds_ref, '')
+
+                if ds_name:
+                    if target_ref not in technique_to_data_sources:
+                        technique_to_data_sources[target_ref] = set()
+                    technique_to_data_sources[target_ref].add(ds_name)
+
+    return technique_to_data_sources
+
+def get_data_sources_for_technique(technique_id, data_source_map):
+    """Get data sources for a specific technique"""
+    data_sources = data_source_map.get(technique_id, set())
+    return ', '.join(sorted(data_sources)) if data_sources else ''
+
 def extract_banking_techniques(data, bank_entities):
     """Extract techniques used by banking sector entities with detailed context"""
     if not data:
         return []
 
     objects = data.get('objects', [])
+
+    # Build data source mappings once (efficient)
+    print("\nBuilding data source mappings...")
+    data_source_map = build_data_source_mappings(objects)
+    print(f"Found {len(data_source_map)} techniques with data sources")
 
     # Find all banking-related entities
     print("\nSearching for banking sector entities...")
@@ -247,6 +320,10 @@ def extract_banking_techniques(data, bank_entities):
                           details['used_by_software'] +
                           details['used_by_campaigns'])
 
+            # Extract data sources using new method (MITRE ATT&CK v11+ structure)
+            # Note: x_mitre_data_sources was deprecated in favor of separate data source objects
+            data_sources_str = get_data_sources_for_technique(obj['id'], data_source_map)
+
             # Get technique info
             technique_info = {
                 'technique_id': obj.get('external_references', [{}])[0].get('external_id', 'Unknown'),
@@ -255,7 +332,7 @@ def extract_banking_techniques(data, bank_entities):
                 'tactics': [phase['phase_name'] for phase in obj.get('kill_chain_phases', [])],
                 'tactics_str': ', '.join(phase['phase_name'] for phase in obj.get('kill_chain_phases', [])),
                 'platforms': ', '.join(obj.get('x_mitre_platforms', [])),
-                'data_sources': ', '.join([ds.get('data_source_name', '') for ds in obj.get('x_mitre_data_sources', [])]),
+                'data_sources': data_sources_str,
                 'groups': sorted(list(set(details['used_by_groups']))),
                 'software': sorted(list(set(details['used_by_software']))),
                 'campaigns': sorted(list(set(details['used_by_campaigns']))),
@@ -264,7 +341,7 @@ def extract_banking_techniques(data, bank_entities):
                 'group_count': len(details['group_ids']),
                 'software_count': len(details['software_ids']),
                 'mitigation_count': 0,  # Will be populated later
-                'detection_available': bool(obj.get('x_mitre_detection', '')),
+                'detection_available': bool(obj.get('x_mitre_detection', '').strip()),
                 'detection_notes': obj.get('x_mitre_detection', '')[:200] + '...' if len(obj.get('x_mitre_detection', '')) > 200 else obj.get('x_mitre_detection', ''),
                 'relationship_context': ' | '.join(details['relationship_descriptions'][:3])  # Top 3 contexts
             }
@@ -662,7 +739,23 @@ def main():
         f.write("   - Tactic Importance Score (0-40): Weighted by empirical tactic distribution\n")
         f.write("   - Group Diversity Bonus (0-20): Rewards techniques used by multiple groups\n")
         f.write("   - Total Score Range: 0-100\n\n")
-        f.write("5. VALIDATION\n")
+        f.write("5. KNOWN LIMITATIONS\n")
+        f.write("   IMPORTANT: The following fields are empty due to MITRE ATT&CK data structure changes:\n\n")
+        f.write("   A. Data Sources Field:\n")
+        f.write("      - As of ATT&CK v11+, the 'x_mitre_data_sources' field was deprecated\n")
+        f.write("      - Data sources are now separate objects (x-mitre-data-source/component)\n")
+        f.write("      - These are NOT linked to techniques via relationships in STIX JSON\n")
+        f.write("      - To get data sources: use MITRE ATT&CK Navigator or website API\n\n")
+        f.write("   B. Detection Guidance Field:\n")
+        f.write("      - The 'x_mitre_detection' field is empty in the STIX JSON files\n")
+        f.write("      - Detection information moved to separate Analytics framework\n")
+        f.write("      - Analytics are not linked to techniques via relationships\n")
+        f.write("      - To get detection guidance: consult MITRE ATT&CK website directly\n\n")
+        f.write("   Impact on Analysis:\n")
+        f.write("      - Scoring is based on entity usage, tactics, and group diversity\n")
+        f.write("      - Data sources and detection are excluded from scoring\n")
+        f.write("      - Results remain valid for prioritization based on threat actor behavior\n\n")
+        f.write("6. VALIDATION\n")
         f.write("   - Cross-reference with industry threat reports recommended\n")
         f.write("   - Sources: Verizon DBIR, IBM X-Force, Mandiant M-Trends\n")
 
