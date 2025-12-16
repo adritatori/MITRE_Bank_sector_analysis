@@ -179,59 +179,31 @@ def find_banking_entities(objects, bank_entities):
     return entity_mapping, entity_names, entity_types
 
 def build_detection_strategy_mappings(objects):
-    """Build efficient mappings for detection strategies with proper reference resolution
-
-    NOTE: Data sources are NO LONGER linked to techniques in MITRE ATT&CK v14+ STIX/JSON.
-    This function extracts detection strategies as an alternative, which ARE properly linked.
-
-    This function extracts detection strategies by:
-    1. Building a lookup of all detection strategy objects (x-mitre-detection-strategy)
-    2. Finding 'detects' relationships from detection strategies to techniques
-    3. Extracting strategy names for each technique
-    """
-    # Step 1: Build detection strategy lookup (id -> name)
-    detection_strategies = {}
+   # Step 1: Build data source lookup
+    data_sources = {obj['id']: obj['name'] 
+                   for obj in objects 
+                   if obj.get('type') == 'x-mitre-data-source'}
+    
+    # Step 2: Build data component lookup with parent references
+    data_components = {}
     for obj in objects:
-        if obj.get('type') == 'x-mitre-detection-strategy':
-            detection_strategies[obj['id']] = obj.get('name', '')
-
-    print(f"  Found {len(detection_strategies)} detection strategy objects")
-
-    # Step 2: Find 'detects' relationships (strategy detects technique)
-    technique_to_strategies = {}
-    detects_relationships = 0
-
+        if obj.get('type') == 'x-mitre-data-component':
+            parent_ref = obj.get('x_mitre_data_source_ref')
+            parent_name = data_sources.get(parent_ref, 'Unknown')
+            data_components[obj['id']] = f"{parent_name}: {obj['name']}"
+    
+    # Step 3: Extract from techniques
+    technique_data_sources = {}
     for obj in objects:
-        if obj.get('type') == 'relationship' and obj.get('relationship_type') == 'detects':
-            source_ref = obj.get('source_ref', '')  # detection strategy
-            target_ref = obj.get('target_ref', '')  # technique (attack-pattern)
-
-            # Verify source is a detection strategy and target is a technique
-            if source_ref in detection_strategies and 'attack-pattern' in target_ref:
-                detects_relationships += 1
-                strategy_name = detection_strategies[source_ref]
-
-                # Add detection strategy name to technique mapping
-                if target_ref not in technique_to_strategies:
-                    technique_to_strategies[target_ref] = set()
-                technique_to_strategies[target_ref].add(strategy_name)
-
-    print(f"  Found {detects_relationships} 'detects' relationships")
-    print(f"  Mapped {len(technique_to_strategies)} techniques to detection strategies")
-
-    # Debug: Show sample mappings
-    if technique_to_strategies:
-        sample = list(technique_to_strategies.items())[:3]
-        print(f"  Sample mappings:")
-        for tech_id, strategies in sample:
-            strat_count = len(strategies)
-            strat_preview = list(strategies)[:2]
-            preview_text = ', '.join(strat_preview)
-            if strat_count > 2:
-                preview_text += f", ... (+{strat_count-2} more)"
-            print(f"    {tech_id}: {strat_count} strategies ({preview_text})")
-
-    return technique_to_strategies
+        if obj.get('type') == 'attack-pattern':
+            tech_id = obj['id']
+            # THIS is where data sources are linked
+            component_refs = obj.get('x_mitre_data_component_refs', [])
+            sources = [data_components[ref] for ref in component_refs 
+                      if ref in data_components]
+            technique_data_sources[tech_id] = sources
+    
+    return technique_data_sources
 
 def get_detection_strategies_for_technique(technique_id, strategy_map):
     """Get detection strategies for a specific technique"""
