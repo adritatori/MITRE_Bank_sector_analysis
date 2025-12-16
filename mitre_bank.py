@@ -155,12 +155,81 @@ def find_banking_entities(objects, bank_entities):
 
     return entity_mapping, entity_names, entity_types
 
+def build_technique_data_sources_map(objects):
+    """Build a mapping of techniques to data sources using new ATT&CK data model.
+
+    The new model uses: Detection Strategy → Analytics → Data Components → Data Sources
+    """
+    print("\nBuilding technique to data sources mapping...")
+
+    # Create lookup dictionaries for efficiency
+    strategies_by_id = {obj['id']: obj for obj in objects if obj.get('type') == 'x-mitre-detection-strategy'}
+    analytics_by_id = {obj['id']: obj for obj in objects if obj.get('type') == 'x-mitre-analytic'}
+    components_by_id = {obj['id']: obj for obj in objects if obj.get('type') == 'x-mitre-data-component'}
+    data_sources_by_id = {obj['id']: obj for obj in objects if obj.get('type') == 'x-mitre-data-source'}
+
+    # Find detects relationships
+    technique_data_sources = {}
+
+    for obj in objects:
+        if obj.get('type') == 'relationship' and obj.get('relationship_type') == 'detects':
+            strategy_id = obj.get('source_ref')
+            technique_id = obj.get('target_ref')
+
+            if not strategy_id or not technique_id:
+                continue
+
+            strategy = strategies_by_id.get(strategy_id)
+            if not strategy:
+                continue
+
+            # Get analytics from the strategy
+            analytic_refs = strategy.get('x_mitre_analytic_refs', [])
+
+            for analytic_id in analytic_refs:
+                analytic = analytics_by_id.get(analytic_id)
+                if not analytic:
+                    continue
+
+                # Get data components from log source references
+                log_sources = analytic.get('x_mitre_log_source_references', [])
+
+                for log_source in log_sources:
+                    component_ref = log_source.get('x_mitre_data_component_ref')
+                    if not component_ref:
+                        continue
+
+                    component = components_by_id.get(component_ref)
+                    if not component:
+                        continue
+
+                    # Get the parent data source
+                    ds_ref = component.get('x_mitre_data_source_ref')
+                    if not ds_ref:
+                        continue
+
+                    data_source = data_sources_by_id.get(ds_ref)
+                    if not data_source:
+                        continue
+
+                    # Add to mapping
+                    if technique_id not in technique_data_sources:
+                        technique_data_sources[technique_id] = set()
+
+                    technique_data_sources[technique_id].add(data_source.get('name', ''))
+
+    print(f"  Mapped {len(technique_data_sources)} techniques to data sources")
+    return technique_data_sources
+
 def extract_banking_techniques(data, bank_entities):
     """Extract techniques used by banking sector entities with detailed context"""
     if not data:
         return []
 
     objects = data.get('objects', [])
+
+    # Build data sources mapping using new ATT&CK model
+    technique_data_sources_map = build_technique_data_sources_map(objects)
 
     # Find all banking-related entities
     print("\nSearching for banking sector entities...")
@@ -247,6 +316,11 @@ def extract_banking_techniques(data, bank_entities):
                           details['used_by_software'] +
                           details['used_by_campaigns'])
 
+            # Get data sources from the new mapping
+            tech_id = obj['id']
+            data_sources_set = technique_data_sources_map.get(tech_id, set())
+            data_sources_str = ', '.join(sorted(data_sources_set)) if data_sources_set else ''
+
             # Get technique info
             technique_info = {
                 'technique_id': obj.get('external_references', [{}])[0].get('external_id', 'Unknown'),
@@ -255,7 +329,7 @@ def extract_banking_techniques(data, bank_entities):
                 'tactics': [phase['phase_name'] for phase in obj.get('kill_chain_phases', [])],
                 'tactics_str': ', '.join(phase['phase_name'] for phase in obj.get('kill_chain_phases', [])),
                 'platforms': ', '.join(obj.get('x_mitre_platforms', [])),
-                'data_sources': ', '.join([ds.get('data_source_name', '') for ds in obj.get('x_mitre_data_sources', [])]),
+                'data_sources': data_sources_str,
                 'groups': sorted(list(set(details['used_by_groups']))),
                 'software': sorted(list(set(details['used_by_software']))),
                 'campaigns': sorted(list(set(details['used_by_campaigns']))),
