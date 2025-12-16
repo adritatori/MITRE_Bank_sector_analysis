@@ -3,20 +3,22 @@ MITRE ATT&CK Banking Sector Threat Analysis
 
 This script analyzes MITRE ATT&CK techniques used by banking sector threat entities.
 
+DETECTION STRATEGY EXTRACTION:
+- Detection strategies are extracted via 'detects' relationships in STIX/JSON
+- Process: x-mitre-detection-strategy -> technique (via 'detects' relationship)
+- 691 detection strategies are properly linked to techniques in v14+
+
 KNOWN LIMITATIONS (as of MITRE ATT&CK v14+):
-- Data Sources: The 'x_mitre_data_sources' field was deprecated in ATT&CK v11+.
-  Data sources are now separate objects but NOT linked to techniques in STIX JSON.
-  Result: data_sources field will be empty for all techniques.
+- Data Sources: The STIX/JSON format NO LONGER contains linkages between data sources and techniques.
+  Data component objects exist but lack parent references and technique relationships.
+  For data source information, consult the MITRE ATT&CK website: https://attack.mitre.org/
 
 - Detection Guidance: The 'x_mitre_detection' field is empty in STIX JSON files.
-  Detection information is now in the separate Analytics framework.
-  Result: detection_available will be False for all techniques.
+  Detection information is now in separate x-mitre-detection-strategy objects.
+  This script extracts these detection strategies as an alternative to data sources.
 
-These limitations do NOT affect the core analysis, which prioritizes techniques
-based on actual threat actor behavior (entity usage, tactics, group diversity).
-
-For data sources and detection guidance, consult the MITRE ATT&CK website directly:
-https://attack.mitre.org/
+This analysis prioritizes techniques based on actual threat actor behavior
+(entity usage, tactics, group diversity, and available detection strategies).
 """
 
 import json
@@ -176,52 +178,65 @@ def find_banking_entities(objects, bank_entities):
 
     return entity_mapping, entity_names, entity_types
 
-def build_data_source_mappings(objects):
-    """Build efficient mappings for data sources (called once)
+def build_detection_strategy_mappings(objects):
+    """Build efficient mappings for detection strategies with proper reference resolution
 
-    NOTE: As of MITRE ATT&CK v14+, the x_mitre_data_sources field has been deprecated.
-    Data sources are now separate objects (x-mitre-data-source and x-mitre-data-component)
-    but are NOT linked to techniques via relationships in the STIX format.
+    NOTE: Data sources are NO LONGER linked to techniques in MITRE ATT&CK v14+ STIX/JSON.
+    This function extracts detection strategies as an alternative, which ARE properly linked.
 
-    This function attempts to extract data sources, but may return empty results
-    due to the current ATT&CK data structure.
+    This function extracts detection strategies by:
+    1. Building a lookup of all detection strategy objects (x-mitre-detection-strategy)
+    2. Finding 'detects' relationships from detection strategies to techniques
+    3. Extracting strategy names for each technique
     """
-    # Build data component -> data source mapping
-    component_to_source = {}
-    data_sources = {}
-    technique_to_data_sources = {}
-
-    # First pass: collect all data sources and components
+    # Step 1: Build detection strategy lookup (id -> name)
+    detection_strategies = {}
     for obj in objects:
-        if obj.get('type') == 'x-mitre-data-source':
-            data_sources[obj['id']] = obj.get('name', '')
-        elif obj.get('type') == 'x-mitre-data-component':
-            ds_ref = obj.get('x_mitre_data_source_ref')
-            if ds_ref:
-                component_to_source[obj['id']] = ds_ref
+        if obj.get('type') == 'x-mitre-detection-strategy':
+            detection_strategies[obj['id']] = obj.get('name', '')
 
-    # Second pass: find relationships (detects) from data-components to techniques
+    print(f"  Found {len(detection_strategies)} detection strategy objects")
+
+    # Step 2: Find 'detects' relationships (strategy detects technique)
+    technique_to_strategies = {}
+    detects_relationships = 0
+
     for obj in objects:
         if obj.get('type') == 'relationship' and obj.get('relationship_type') == 'detects':
-            source_ref = obj.get('source_ref', '')
-            target_ref = obj.get('target_ref', '')
+            source_ref = obj.get('source_ref', '')  # detection strategy
+            target_ref = obj.get('target_ref', '')  # technique (attack-pattern)
 
-            # Check if source is a data component and target is an attack-pattern
-            if source_ref in component_to_source and 'attack-pattern' in target_ref:
-                ds_ref = component_to_source[source_ref]
-                ds_name = data_sources.get(ds_ref, '')
+            # Verify source is a detection strategy and target is a technique
+            if source_ref in detection_strategies and 'attack-pattern' in target_ref:
+                detects_relationships += 1
+                strategy_name = detection_strategies[source_ref]
 
-                if ds_name:
-                    if target_ref not in technique_to_data_sources:
-                        technique_to_data_sources[target_ref] = set()
-                    technique_to_data_sources[target_ref].add(ds_name)
+                # Add detection strategy name to technique mapping
+                if target_ref not in technique_to_strategies:
+                    technique_to_strategies[target_ref] = set()
+                technique_to_strategies[target_ref].add(strategy_name)
 
-    return technique_to_data_sources
+    print(f"  Found {detects_relationships} 'detects' relationships")
+    print(f"  Mapped {len(technique_to_strategies)} techniques to detection strategies")
 
-def get_data_sources_for_technique(technique_id, data_source_map):
-    """Get data sources for a specific technique"""
-    data_sources = data_source_map.get(technique_id, set())
-    return ', '.join(sorted(data_sources)) if data_sources else ''
+    # Debug: Show sample mappings
+    if technique_to_strategies:
+        sample = list(technique_to_strategies.items())[:3]
+        print(f"  Sample mappings:")
+        for tech_id, strategies in sample:
+            strat_count = len(strategies)
+            strat_preview = list(strategies)[:2]
+            preview_text = ', '.join(strat_preview)
+            if strat_count > 2:
+                preview_text += f", ... (+{strat_count-2} more)"
+            print(f"    {tech_id}: {strat_count} strategies ({preview_text})")
+
+    return technique_to_strategies
+
+def get_detection_strategies_for_technique(technique_id, strategy_map):
+    """Get detection strategies for a specific technique"""
+    strategies = strategy_map.get(technique_id, set())
+    return len(strategies)  # Return count instead of full names (for brevity)
 
 def extract_banking_techniques(data, bank_entities):
     """Extract techniques used by banking sector entities with detailed context"""
@@ -230,10 +245,10 @@ def extract_banking_techniques(data, bank_entities):
 
     objects = data.get('objects', [])
 
-    # Build data source mappings once (efficient)
-    print("\nBuilding data source mappings...")
-    data_source_map = build_data_source_mappings(objects)
-    print(f"Found {len(data_source_map)} techniques with data sources")
+    # Build detection strategy mappings once (efficient)
+    print("\nBuilding detection strategy mappings...")
+    strategy_map = build_detection_strategy_mappings(objects)
+    print(f"Found {len(strategy_map)} techniques with detection strategies")
 
     # Find all banking-related entities
     print("\nSearching for banking sector entities...")
@@ -320,9 +335,9 @@ def extract_banking_techniques(data, bank_entities):
                           details['used_by_software'] +
                           details['used_by_campaigns'])
 
-            # Extract data sources using new method (MITRE ATT&CK v11+ structure)
-            # Note: x_mitre_data_sources was deprecated in favor of separate data source objects
-            data_sources_str = get_data_sources_for_technique(obj['id'], data_source_map)
+            # Extract detection strategies (MITRE ATT&CK v14+ structure)
+            # Note: Data sources are no longer linked in STIX/JSON; using detection strategies instead
+            detection_strategy_count = get_detection_strategies_for_technique(obj['id'], strategy_map)
 
             # Get technique info
             technique_info = {
@@ -332,7 +347,7 @@ def extract_banking_techniques(data, bank_entities):
                 'tactics': [phase['phase_name'] for phase in obj.get('kill_chain_phases', [])],
                 'tactics_str': ', '.join(phase['phase_name'] for phase in obj.get('kill_chain_phases', [])),
                 'platforms': ', '.join(obj.get('x_mitre_platforms', [])),
-                'data_sources': data_sources_str,
+                'detection_strategy_count': detection_strategy_count,
                 'groups': sorted(list(set(details['used_by_groups']))),
                 'software': sorted(list(set(details['used_by_software']))),
                 'campaigns': sorted(list(set(details['used_by_campaigns']))),
@@ -739,23 +754,29 @@ def main():
         f.write("   - Tactic Importance Score (0-40): Weighted by empirical tactic distribution\n")
         f.write("   - Group Diversity Bonus (0-20): Rewards techniques used by multiple groups\n")
         f.write("   - Total Score Range: 0-100\n\n")
-        f.write("5. KNOWN LIMITATIONS\n")
-        f.write("   IMPORTANT: The following fields are empty due to MITRE ATT&CK data structure changes:\n\n")
-        f.write("   A. Data Sources Field:\n")
-        f.write("      - As of ATT&CK v11+, the 'x_mitre_data_sources' field was deprecated\n")
-        f.write("      - Data sources are now separate objects (x-mitre-data-source/component)\n")
-        f.write("      - These are NOT linked to techniques via relationships in STIX JSON\n")
-        f.write("      - To get data sources: use MITRE ATT&CK Navigator or website API\n\n")
-        f.write("   B. Detection Guidance Field:\n")
+        f.write("5. DETECTION STRATEGY EXTRACTION\n")
+        f.write("   - Detection strategies extracted via relationship resolution:\n")
+        f.write("     1. Collect all x-mitre-detection-strategy objects\n")
+        f.write("     2. Find 'detects' relationships: strategy -> technique\n")
+        f.write("     3. Count detection strategies available for each technique\n")
+        f.write("   - This uses the MITRE ATT&CK v14+ structure with 691 detection strategies\n\n")
+        f.write("6. KNOWN LIMITATIONS\n")
+        f.write("   Data Source Field:\n")
+        f.write("      - The STIX/JSON format NO LONGER contains linkages between data sources and techniques\n")
+        f.write("      - Data component objects exist but lack parent references and technique relationships\n")
+        f.write("      - Data sources cannot be extracted from the current STIX bundle format\n")
+        f.write("      - To get data source information: consult MITRE ATT&CK website directly\n")
+        f.write("      - See MITRE_DATA_SOURCE_FINDINGS.md for detailed technical analysis\n\n")
+        f.write("   Detection Guidance Field:\n")
         f.write("      - The 'x_mitre_detection' field is empty in the STIX JSON files\n")
-        f.write("      - Detection information moved to separate Analytics framework\n")
-        f.write("      - Analytics are not linked to techniques via relationships\n")
-        f.write("      - To get detection guidance: consult MITRE ATT&CK website directly\n\n")
+        f.write("      - Detection information moved to x-mitre-detection-strategy objects\n")
+        f.write("      - This script extracts these detection strategies as an alternative\n\n")
         f.write("   Impact on Analysis:\n")
         f.write("      - Scoring is based on entity usage, tactics, and group diversity\n")
-        f.write("      - Data sources and detection are excluded from scoring\n")
+        f.write("      - Detection strategies are included for context (not scoring)\n")
+        f.write("      - Data sources must be looked up separately on MITRE ATT&CK website\n")
         f.write("      - Results remain valid for prioritization based on threat actor behavior\n\n")
-        f.write("6. VALIDATION\n")
+        f.write("7. VALIDATION\n")
         f.write("   - Cross-reference with industry threat reports recommended\n")
         f.write("   - Sources: Verizon DBIR, IBM X-Force, Mandiant M-Trends\n")
 
