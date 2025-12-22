@@ -1,0 +1,218 @@
+Technique_ID,Technique_Name,Tactic,Classification,Reasoning,Network_Artifact,Priority,Score,Threat_Groups,Associated_Software
+T1105,Ingress Tool Transfer,command-and-control,YES,File transfer over network protocols,"HTTP/HTTPS, FTP, SMB traffic with file transfers",High-Priority,72.4,"APT38, Andariel, Cobalt Group, Indrik Spider, Lazarus Group, Silence, TA505, Wizard Spider","Carberp, Dyre, QakBot, TrickBot"
+T1071.001,Web Protocols,command-and-control,YES,C2 using HTTP/HTTPS web protocols,HTTP/HTTPS POST/GET requests to C2 servers,High-Priority,72.4,"APT38, Cobalt Group, Lazarus Group, TA505, Wizard Spider","Carbanak, Carberp, Dridex, Dyre, QakBot, TrickBot"
+T1566.001,Spearphishing Attachment,initial-access,YES,Email with malicious attachments,"SMTP traffic with attachments, email headers",High-Priority,65.6,"APT38, Andariel, Cobalt Group, Lazarus Group, Malteiro, Silence, TA505, Wizard Spider","QakBot, TrickBot"
+T1021.001,Remote Desktop Protocol,lateral-movement,YES,Remote desktop protocol connections,"RDP traffic on port 3389, encrypted session data",High-Priority,56.8,"Cobalt Group, Indrik Spider, Lazarus Group, Silence, Wizard Spider",Carbanak
+T1018,Remote System Discovery,discovery,YES,Network scanning and enumeration commands,"ICMP, ARP, NetBIOS, LDAP queries for host discovery",Common,55.8,"Indrik Spider, Silence, Wizard Spider","QakBot, TrickBot"
+T1566.002,Spearphishing Link,initial-access,YES,Email with malicious links,"SMTP traffic, HTTP redirects, DNS queries",High-Priority,51.6,"Cobalt Group, Lazarus Group, TA505, Wizard Spider","QakBot, TrickBot"
+T1041,Exfiltration Over C2 Channel,exfiltration,YES,Data exfiltration over C2 channel,"Encrypted outbound traffic, large data volumes",High-Priority,40.4,"Lazarus Group, Wizard Spider","Carberp, Dyre, QakBot, TrickBot"
+T1219,Remote Access Tools,command-and-control,YES,Remote access software usage,"TeamViewer, VNC, AnyDesk network traffic",Common,40.4,"Carbanak, Cobalt Group","Carbanak, Dridex, TrickBot"
+T1046,Network Service Discovery,discovery,YES,Network port and service scanning,"SYN scans, service probes, port sweep traffic",Medium,36.8,"Cobalt Group, Lazarus Group",
+T1571,Non-Standard Port,command-and-control,YES,Non-standard ports for C2,"Known protocols on unusual ports, custom protocols",Medium,35.4,"Lazarus Group, Silence",TrickBot
+T1021.004,SSH,lateral-movement,YES,SSH remote access,"SSH traffic on port 22, encrypted sessions",Medium,33.8,"GCMAN, Indrik Spider, Lazarus Group",
+T1557.001,LLMNR/NBT-NS Poisoning and SMB Relay,"credential-access, collection",YES,LLMNR/NBT-NS poisoning,"Spoofed LLMNR/NBT-NS responses, name resolution anomalies",Medium,28.6,"Lazarus Group, Wizard Spider",
+T1572,Protocol Tunneling,command-and-control,YES,Protocol tunneling for C2,"Encapsulated protocols, unusual port/protocol combinations",Medium,26.4,Cobalt Group,QakBot
+T1021.002,SMB/Windows Admin Shares,lateral-movement,YES,SMB/Windows Admin Shares access,"SMB traffic on ports 445/139, authentication attempts",Medium,24.8,"Lazarus Group, Wizard Spider",
+T1071.004,DNS,command-and-control,YES,C2 using DNS protocol,"High volume DNS queries, long domain names, TXT records",Rare,21.4,Cobalt Group,
+T1095,Non-Application Layer Protocol,command-and-control,YES,Non-application layer protocols,"Raw socket traffic, custom network protocols",Rare,17.4,,QakBot
+T1090,Proxy,command-and-control,YES,Proxy usage for C2,"Traffic to known proxy IPs, SOCKS/HTTP proxy protocols",Rare,17.4,,Dridex
+T1021.006,Windows Remote Management,lateral-movement,YES,Windows Remote Management,"WinRM traffic on ports 5985/5986, HTTP(S) protocol",Rare,15.8,Wizard Spider,
+T1562.004,Disable or Modify System Firewall,defense-evasion,PARTIAL,"Firewall changes local, may block network detection",Sudden drop in expected network traffic patterns,Medium,67.0,"APT38, Carbanak, Lazarus Group",
+T1078,Valid Accounts,"defense-evasion, persistence, privilege-escalation, initial-access",PARTIAL,Valid accounts used locally or remotely,"Successful auth from unusual locations, off-hours logins",Common,62.8,"Carbanak, Indrik Spider, Lazarus Group, Silence, Wizard Spider",
+T1016,System Network Configuration Discovery,discovery,PARTIAL,"Network config discovery, usually local","DHCP requests, ARP queries if network enumeration occurs",Common,51.8,"Lazarus Group, Wizard Spider","Dyre, QakBot, TrickBot"
+T1049,System Network Connections Discovery,discovery,PARTIAL,"Network connection enumeration, local or remote","NetBIOS, SMB queries if remote, none if local commands",Common,50.8,"APT38, Andariel, Lazarus Group",QakBot
+T1204.001,Malicious Link,execution,PARTIAL,Clicking malicious link triggers network,"HTTP requests to malicious URLs, redirects, downloads",Common,50.4,"APT38, Cobalt Group, TA505, Wizard Spider",QakBot
+T1059.007,JavaScript,execution,PARTIAL,"JavaScript execution, may fetch remote content",HTTP requests if script downloads additional payloads,Common,50.4,"Cobalt Group, Indrik Spider, Silence, TA505",QakBot
+T1562.013,Disable or Modify Network Device Firewall,defense-evasion,PARTIAL,Network device firewall changes,"Changes visible in firewall logs, SNMP, config backups",Rare,49.0,APT38,
+T1135,Network Share Discovery,discovery,PARTIAL,Network share discovery,"SMB/CIFS queries, NetBIOS enumeration traffic",Common,46.8,"APT38, Wizard Spider","QakBot, TrickBot"
+T1573.001,Symmetric Cryptography,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Common,41.4,Lazarus Group,"Carbanak, Dridex, QakBot, TrickBot"
+T1090.002,External Proxy,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Common,40.4,"Lazarus Group, Silence","QakBot, TrickBot"
+T1056.001,Keylogging,"collection, credential-access",PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Common,38.6,"APT38, Lazarus Group","Carbanak, QakBot"
+T1132.001,Standard Encoding,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Common,36.4,Lazarus Group,"Carbanak, QakBot, TrickBot"
+T1585.002,Email Accounts,resource-development,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,34.6,"Indrik Spider, Lazarus Group, Wizard Spider",
+T1518,Software Discovery,discovery,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,33.8,,"Dridex, Dyre, QakBot"
+T1189,Drive-by Compromise,initial-access,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,32.6,"APT38, Andariel, Lazarus Group",
+T1102.002,Bidirectional Communication,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,30.4,"Carbanak, Lazarus Group",
+T1558.003,Kerberoasting,credential-access,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,29.8,"Indrik Spider, Wizard Spider",
+T1482,Domain Trust Discovery,discovery,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,28.8,,"QakBot, TrickBot"
+T1113,Screen Capture,collection,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,28.4,Silence,"Carbanak, Carberp"
+T1518.002,Backup Software Discovery,discovery,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,27.8,Wizard Spider,
+T1680,Local Storage Discovery,discovery,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,27.8,Lazarus Group,
+T1559.002,Dynamic Data Exchange,execution,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,27.4,"Cobalt Group, TA505",
+T1573.002,Asymmetric Cryptography,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,26.4,Cobalt Group,Dridex
+T1008,Fallback Channels,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,26.4,Lazarus Group,TrickBot
+T1561.002,Disk Structure Wipe,impact,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,26.2,"APT38, Lazarus Group",
+T1529,System Shutdown/Reboot,impact,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,26.2,"APT38, Lazarus Group",
+T1210,Exploitation of Remote Services,lateral-movement,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,25.8,Wizard Spider,"QakBot, TrickBot"
+T1110,Brute Force,credential-access,PARTIAL,Brute force can be local or remote,"Multiple failed auth attempts via SMB, RDP, SSH, LDAP",Medium,25.8,APT38,QakBot
+T1021.005,VNC,lateral-movement,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,25.8,GCMAN,"Carberp, TrickBot"
+T1588.001,Malware,resource-development,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,25.6,"Andariel, TA505",
+T1584.004,Server,resource-development,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,25.6,"Indrik Spider, Lazarus Group",
+T1587.001,Malware,resource-development,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,25.6,"Indrik Spider, Lazarus Group",
+T1016.001,Internet Connection Discovery,discovery,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,23.8,,QakBot
+T1505.003,Web Shell,persistence,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,21.4,APT38,
+T1090.001,Internal Proxy,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,21.4,Lazarus Group,
+T1568.001,Fast Flux DNS,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,21.4,TA505,
+T1104,Multi-Stage Channels,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,21.4,Lazarus Group,
+T1136,Create Account,persistence,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,21.4,Indrik Spider,
+T1001.003,Protocol or Service Impersonation,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,21.4,Lazarus Group,
+T1110.003,Password Spraying,credential-access,PARTIAL,Password spraying against network services,"Multiple login attempts across accounts, SMB, LDAP, HTTP",Rare,20.8,Lazarus Group,
+T1048.003,Exfiltration Over Unencrypted Non-C2 Protocol,exfiltration,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,20.4,"Lazarus Group, Wizard Spider",
+T1567.002,Exfiltration to Cloud Storage,exfiltration,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Medium,20.4,"Indrik Spider, Wizard Spider",
+T1560.003,Archive via Custom Method,collection,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,18.4,Lazarus Group,
+T1560.001,Archive via Utility,collection,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,18.4,Wizard Spider,
+T1560.002,Archive via Library,collection,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,18.4,Lazarus Group,
+T1560,Archive Collected Data,collection,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,18.4,Lazarus Group,
+T1133,External Remote Services,"persistence, initial-access",PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,18.0,Wizard Spider,
+T1090.003,Multi-hop Proxy,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,17.4,,Dridex
+T1568.002,Domain Generation Algorithms,command-and-control,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,17.4,,QakBot
+T1561.001,Disk Content Wipe,impact,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,17.2,Lazarus Group,
+T1072,Software Deployment Tools,"execution, lateral-movement",PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,17.1,Silence,
+T1608.001,Upload Malware,resource-development,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,16.6,TA505,
+T1583.006,Web Services,resource-development,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,16.6,Lazarus Group,
+T1021,Remote Services,lateral-movement,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,15.8,Wizard Spider,
+T1590,Gather Victim Network Information,reconnaissance,PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,12.2,Indrik Spider,
+T1091,Replication Through Removable Media,"lateral-movement, initial-access",PARTIAL,May involve network communication based on implementation,Protocol-specific traffic if network variant used,Rare,11.2,,QakBot
+T1562.001,Disable or Modify Tools,defense-evasion,NO,Disabling security tools is local host activity,,High-Priority,100.0,"APT38, Indrik Spider, Lazarus Group, TA505, Wizard Spider","Carberp, QakBot, TrickBot"
+T1070.004,File Deletion,defense-evasion,NO,Local file deletion operations only,,High-Priority,95.0,"APT38, Cobalt Group, Lazarus Group, Silence, Wizard Spider","Carbanak, QakBot"
+T1140,Deobfuscate/Decode Files or Information,defense-evasion,NO,Local file deobfuscation and decoding,,High-Priority,91.0,"APT38, Lazarus Group, Malteiro, TA505","Dyre, QakBot, TrickBot"
+T1218.011,Rundll32,defense-evasion,NO,Local process execution via rundll32,,High-Priority,90.0,"APT38, Carbanak, Lazarus Group, TA505, Wizard Spider",QakBot
+T1553.002,Code Signing,defense-evasion,NO,Code signing is local file operation,,High-Priority,86.0,"Lazarus Group, Silence, TA505, Wizard Spider","QakBot, TrickBot"
+T1112,Modify Registry,"defense-evasion, persistence",NO,Registry modification is local to host,,High-Priority,81.2,"APT38, Indrik Spider, Silence, TA505, Wizard Spider","QakBot, TrickBot"
+T1027.010,Command Obfuscation,defense-evasion,NO,Command obfuscation in local shell,,Common,81.0,"Cobalt Group, Silence, TA505, Wizard Spider",QakBot
+T1036.005,Match Legitimate Resource Name or Location,defense-evasion,NO,File renaming and placement locally,,Common,81.0,"Carbanak, Indrik Spider, Lazarus Group, Silence",Carberp
+T1055,Process Injection,"defense-evasion, privilege-escalation",NO,"Process injection is memory-based, local",,High-Priority,77.6,"APT38, Cobalt Group, Silence, Wizard Spider","Dyre, QakBot, TrickBot"
+T1027.013,Encrypted/Encoded File,defense-evasion,NO,File encryption is local operation,,Common,77.0,"Lazarus Group, Malteiro, TA505","Carberp, TrickBot"
+T1082,System Information Discovery,discovery,NO,Local system information gathering,,High-Priority,74.8,"APT38, Lazarus Group, Malteiro, Wizard Spider","Carberp, Dridex, Dyre, QakBot, TrickBot"
+T1027.002,Software Packing,defense-evasion,NO,Software packing is local file operation,,Common,73.0,"APT38, TA505","Dyre, QakBot, TrickBot"
+T1543.003,Windows Service,"persistence, privilege-escalation",NO,Windows service creation is local,,High-Priority,72.8,"APT38, Carbanak, Cobalt Group, Lazarus Group, Wizard Spider","Dyre, QakBot, TrickBot"
+T1055.001,Dynamic-link Library Injection,"defense-evasion, privilege-escalation",NO,DLL injection into local processes,,High-Priority,72.6,"Lazarus Group, Malteiro, TA505, Wizard Spider","Carberp, Dyre"
+T1053.005,Scheduled Task,"execution, persistence, privilege-escalation",NO,Scheduled task creation locally,,High-Priority,71.67,"APT38, Cobalt Group, Lazarus Group, Silence, Wizard Spider","Dridex, Dyre, QakBot, TrickBot"
+T1204.002,Malicious File,execution,NO,User execution of malicious file locally,,High-Priority,69.4,"APT38, Andariel, Cobalt Group, Indrik Spider, Lazarus Group, Malteiro, Silence, TA505, Wizard Spider","Dridex, QakBot, TrickBot"
+T1059.001,PowerShell,execution,NO,PowerShell execution on local host,,High-Priority,69.4,"APT38, Cobalt Group, Indrik Spider, Lazarus Group, Silence, TA505, Wizard Spider","QakBot, TrickBot"
+T1059.003,Windows Command Shell,execution,NO,Command shell execution locally,,High-Priority,69.4,"APT38, Cobalt Group, Indrik Spider, Lazarus Group, Silence, TA505, Wizard Spider","Carbanak, QakBot, TrickBot"
+T1547.001,Registry Run Keys / Startup Folder,"persistence, privilege-escalation",NO,Registry run keys are local persistence,,High-Priority,68.8,"Cobalt Group, Lazarus Group, Silence, Wizard Spider","Carbanak, Carberp, QakBot, TrickBot"
+T1036.004,Masquerade Task or Service,defense-evasion,NO,Service masquerading is local operation,,Medium,67.0,"Carbanak, Lazarus Group, Wizard Spider",
+T1057,Process Discovery,discovery,NO,Local process enumeration,,High-Priority,65.8,"APT38, Andariel, Lazarus Group","Carbanak, Carberp, QakBot, TrickBot"
+T1106,Native API,execution,NO,Native API calls are local operations,,High-Priority,65.4,"APT38, Lazarus Group, Silence, TA505","Carberp, Dridex, QakBot, TrickBot"
+T1518.001,Security Software Discovery,discovery,NO,Local security software enumeration,,High-Priority,64.8,"APT38, Cobalt Group, Malteiro, Wizard Spider","Carberp, QakBot"
+T1059.005,Visual Basic,execution,NO,Visual Basic execution locally,,High-Priority,64.4,"APT38, Cobalt Group, Lazarus Group, Malteiro, Silence, TA505",QakBot
+T1553.005,Mark-of-the-Web Bypass,defense-evasion,NO,MOTW bypass is local file attribute,,Medium,63.0,"APT38, TA505",QakBot
+T1218.007,Msiexec,defense-evasion,NO,Msiexec execution is local,,Medium,63.0,"APT38, TA505",QakBot
+T1588.002,Tool,resource-development,NO,Tool acquisition during reconnaissance,,High-Priority,62.6,"APT38, Carbanak, Cobalt Group, Lazarus Group, Silence, TA505, Wizard Spider",
+T1033,System Owner/User Discovery,discovery,NO,Local user discovery commands,,High-Priority,60.8,"APT38, Lazarus Group, Wizard Spider","Dyre, QakBot, TrickBot"
+T1027,Obfuscated Files or Information,defense-evasion,NO,File obfuscation is local operation,,Common,60.0,,"Carbanak, Dridex, QakBot, TrickBot"
+T1218.010,Regsvr32,defense-evasion,NO,Regsvr32 local proxy execution,,Medium,59.0,Cobalt Group,"Dridex, QakBot"
+T1564.001,Hidden Files and Directories,defense-evasion,NO,Hidden files are local attributes,,Medium,59.0,Lazarus Group,"Carberp, QakBot"
+T1218.005,Mshta,defense-evasion,NO,Mshta local execution,,Medium,58.0,"APT38, Lazarus Group",
+T1036.003,Rename Legitimate Utilities,defense-evasion,NO,Renaming utilities is local operation,,Medium,58.0,"APT38, Lazarus Group",
+T1218.001,Compiled HTML File,defense-evasion,NO,CHM file execution locally,,Medium,58.0,"APT38, Silence",
+T1070.006,Timestomp,defense-evasion,NO,Timestomping is local file modification,,Medium,58.0,"APT38, Lazarus Group",
+T1070.001,Clear Windows Event Logs,defense-evasion,NO,Clearing event logs locally,,Medium,58.0,"APT38, Indrik Spider",
+T1005,Data from Local System,collection,NO,Data collection from local filesystem,,High-Priority,55.4,"APT38, Andariel, Lazarus Group, Wizard Spider","QakBot, TrickBot"
+T1620,Reflective Code Loading,defense-evasion,NO,Reflective code loading in memory,,Rare,49.0,Lazarus Group,
+T1202,Indirect Command Execution,defense-evasion,NO,Indirect command execution locally,,Rare,49.0,Lazarus Group,
+T1036.006,Space after Filename,defense-evasion,NO,Filename manipulation is local,,Rare,49.0,APT38,
+T1220,XSL Script Processing,defense-evasion,NO,XSL script processing locally,,Rare,49.0,Cobalt Group,
+T1027.003,Steganography,defense-evasion,NO,Steganography in local files,,Rare,49.0,Andariel,
+T1027.007,Dynamic API Resolution,defense-evasion,NO,Dynamic API resolution in memory,,Rare,49.0,Lazarus Group,
+T1562.003,Impair Command History Logging,defense-evasion,NO,Impairing command history locally,,Rare,49.0,APT38,
+T1070,Indicator Removal,defense-evasion,NO,Indicator removal from local system,,Rare,49.0,Lazarus Group,
+T1218.008,Odbcconf,defense-evasion,NO,Odbcconf local execution,,Rare,49.0,Cobalt Group,
+T1218,System Binary Proxy Execution,defense-evasion,NO,System binary proxy execution locally,,Rare,49.0,Lazarus Group,
+T1218.003,CMSTP,defense-evasion,NO,CMSTP local execution,,Rare,49.0,Cobalt Group,
+T1027.009,Embedded Payloads,defense-evasion,NO,Embedded payloads in local files,,Rare,49.0,Lazarus Group,
+T1070.003,Clear Command History,defense-evasion,NO,Clearing command history locally,,Rare,49.0,Lazarus Group,
+T1222.001,Windows File and Directory Permissions Modification,defense-evasion,NO,File permission changes locally,,Rare,49.0,Wizard Spider,
+T1480.002,Mutual Exclusion,defense-evasion,NO,Mutex checking in local memory,,Rare,49.0,APT38,
+T1012,Query Registry,discovery,NO,Registry queries are local,,Common,46.8,"Indrik Spider, Lazarus Group","Carbanak, Carberp"
+T1083,File and Directory Discovery,discovery,NO,File and directory discovery locally,,Common,46.8,"APT38, Lazarus Group","QakBot, TrickBot"
+T1074.001,Local Data Staging,collection,NO,Local data staging in filesystem,,Common,46.4,"Indrik Spider, Lazarus Group, Wizard Spider","Dyre, QakBot"
+T1542.003,Bootkit,"persistence, defense-evasion",NO,Bootkit modifies local boot sectors,,Medium,45.2,Lazarus Group,"Carberp, TrickBot"
+T1036,Masquerading,defense-evasion,NO,Masquerading is local file operation,,Rare,45.0,,TrickBot
+T1014,Rootkit,defense-evasion,NO,Primarily local host-based operations,,Rare,45.0,,Carberp
+T1027.011,Fileless Storage,defense-evasion,NO,Primarily local host-based operations,,Rare,45.0,,QakBot
+T1036.008,Masquerade File Type,defense-evasion,NO,Primarily local host-based operations,,Rare,45.0,,QakBot
+T1027.006,HTML Smuggling,defense-evasion,NO,Primarily local host-based operations,,Rare,45.0,,QakBot
+T1564.003,Hidden Window,defense-evasion,NO,Primarily local host-based operations,,Rare,45.0,,TrickBot
+T1027.005,Indicator Removal from Tools,defense-evasion,NO,Primarily local host-based operations,,Rare,45.0,,QakBot
+T1027.001,Binary Padding,defense-evasion,NO,Primarily local host-based operations,,Rare,45.0,,QakBot
+T1078.002,Domain Accounts,"defense-evasion, persistence, privilege-escalation, initial-access",NO,Primarily local host-based operations,,Medium,44.8,"Indrik Spider, TA505, Wizard Spider",
+T1555.003,Credentials from Web Browsers,credential-access,NO,Primarily local host-based operations,,Common,44.8,"Malteiro, TA505","Carberp, QakBot, TrickBot"
+T1548.002,Bypass User Account Control,"privilege-escalation, defense-evasion",NO,Primarily local host-based operations,,Medium,44.6,"APT38, Cobalt Group",
+T1047,Windows Management Instrumentation,execution,NO,Primarily local host-based operations,,Common,41.4,"Indrik Spider, Lazarus Group, Wizard Spider",QakBot
+T1574.001,DLL,"persistence, privilege-escalation, defense-evasion",NO,Primarily local host-based operations,,Medium,40.87,Lazarus Group,"Dridex, QakBot"
+T1497.003,Time Based Checks,"defense-evasion, discovery",NO,Primarily local host-based operations,,Medium,39.4,,"QakBot, TrickBot"
+T1497.001,System Checks,"defense-evasion, discovery",NO,Primarily local host-based operations,,Medium,39.4,,"Dyre, QakBot"
+T1003.001,LSASS Memory,credential-access,NO,Primarily local host-based operations,,Medium,38.8,"Indrik Spider, Silence, Wizard Spider",
+T1007,System Service Discovery,discovery,NO,Primarily local host-based operations,,Medium,37.8,Indrik Spider,"Dyre, TrickBot"
+T1055.012,Process Hollowing,"defense-evasion, privilege-escalation",NO,Primarily local host-based operations,,Medium,36.6,,"QakBot, TrickBot"
+T1569.002,Service Execution,execution,NO,Primarily local host-based operations,,Medium,36.4,"APT38, Silence, Wizard Spider",
+T1203,Exploitation for Client Execution,execution,NO,Primarily local host-based operations,,Medium,36.4,"Andariel, Cobalt Group, Lazarus Group",
+T1134.002,Create Process with Token,"defense-evasion, privilege-escalation",NO,Primarily local host-based operations,,Rare,35.6,Lazarus Group,
+T1484.001,Group Policy Modification,"defense-evasion, privilege-escalation",NO,Primarily local host-based operations,,Rare,35.6,Indrik Spider,
+T1136.001,Local Account,persistence,NO,Primarily local host-based operations,,Medium,35.4,"Indrik Spider, Wizard Spider",Carbanak
+T1489,Service Stop,impact,NO,Primarily local host-based operations,,Medium,35.2,"Indrik Spider, Lazarus Group, Wizard Spider",
+T1197,BITS Jobs,"defense-evasion, persistence",NO,Primarily local host-based operations,,Rare,35.2,Wizard Spider,
+T1486,Data Encrypted for Impact,impact,NO,Primarily local host-based operations,,Medium,35.2,"APT38, Indrik Spider, TA505",
+T1552.001,Credentials In Files,credential-access,NO,Primarily local host-based operations,,Medium,34.8,"Indrik Spider, TA505",TrickBot
+T1583.001,Domains,resource-development,NO,Primarily local host-based operations,,Medium,34.6,"APT38, Lazarus Group, TA505",
+T1497,Virtualization/Sandbox Evasion,"defense-evasion, discovery",NO,Primarily local host-based operations,,Rare,34.4,,Carberp
+T1087.003,Email Account,discovery,NO,Primarily local host-based operations,,Medium,32.8,TA505,TrickBot
+T1010,Application Window Discovery,discovery,NO,Primarily local host-based operations,,Medium,32.8,Lazarus Group,QakBot
+T1069,Permission Groups Discovery,discovery,NO,Primarily local host-based operations,,Medium,32.8,TA505,TrickBot
+T1124,System Time Discovery,discovery,NO,Primarily local host-based operations,,Medium,32.8,Lazarus Group,QakBot
+T1550.002,Pass the Hash,"defense-evasion, lateral-movement",NO,Primarily local host-based operations,,Rare,32.4,Wizard Spider,
+T1055.002,Portable Executable Injection,"defense-evasion, privilege-escalation",NO,Primarily local host-based operations,,Rare,31.6,,Carbanak
+T1055.004,Asynchronous Procedure Call,"defense-evasion, privilege-escalation",NO,Primarily local host-based operations,,Rare,31.6,,Carberp
+T1574.013,KernelCallbackTable,"persistence, privilege-escalation, defense-evasion",NO,Primarily local host-based operations,,Rare,30.87,Lazarus Group,
+T1185,Browser Session Hijacking,collection,NO,Primarily local host-based operations,,Common,29.4,,"Carberp, Dridex, QakBot, TrickBot"
+T1217,Browser Information Discovery,discovery,NO,Primarily local host-based operations,,Rare,27.8,APT38,
+T1614.001,System Language Discovery,discovery,NO,Primarily local host-based operations,,Rare,27.8,Malteiro,
+T1087.002,Domain Account,discovery,NO,Primarily local host-based operations,,Rare,27.8,Wizard Spider,
+T1068,Exploitation for Privilege Escalation,privilege-escalation,NO,Primarily local host-based operations,,Medium,27.2,Cobalt Group,Carberp
+T1485,Data Destruction,impact,NO,Primarily local host-based operations,,Medium,26.2,"APT38, Lazarus Group",
+T1555,Credentials from Password Stores,credential-access,NO,Primarily local host-based operations,,Medium,25.8,Malteiro,Carberp
+T1555.005,Password Managers,credential-access,NO,Primarily local host-based operations,,Medium,25.8,Indrik Spider,TrickBot
+T1120,Peripheral Device Discovery,discovery,NO,Primarily local host-based operations,,Rare,23.8,,QakBot
+T1087.001,Local Account,discovery,NO,Primarily local host-based operations,,Rare,23.8,,TrickBot
+T1069.001,Local Groups,discovery,NO,Primarily local host-based operations,,Rare,23.8,,QakBot
+T1547.004,Winlogon Helper DLL,"persistence, privilege-escalation",NO,Primarily local host-based operations,,Rare,21.8,Wizard Spider,
+T1547.009,Shortcut Modification,"persistence, privilege-escalation",NO,Primarily local host-based operations,,Rare,21.8,Lazarus Group,
+T1037.001,Logon Script (Windows),"persistence, privilege-escalation",NO,Primarily local host-based operations,,Rare,21.8,Cobalt Group,
+T1098,Account Manipulation,"persistence, privilege-escalation",NO,Primarily local host-based operations,,Rare,21.8,Lazarus Group,
+T1136.002,Domain Account,persistence,NO,Primarily local host-based operations,,Rare,21.4,Wizard Spider,
+T1003.003,NTDS,credential-access,NO,Primarily local host-based operations,,Rare,20.8,Wizard Spider,
+T1003.002,Security Account Manager,credential-access,NO,Primarily local host-based operations,,Rare,20.8,Wizard Spider,
+T1555.004,Windows Credential Manager,credential-access,NO,Primarily local host-based operations,,Rare,20.8,Wizard Spider,
+T1552.006,Group Policy Preferences,credential-access,NO,Primarily local host-based operations,,Rare,20.8,Wizard Spider,
+T1053.003,Cron,"execution, persistence, privilege-escalation",NO,Primarily local host-based operations,,Rare,20.67,APT38,
+T1056.004,Credential API Hooking,"collection, credential-access",NO,Primarily local host-based operations,,Medium,20.6,,"Carberp, TrickBot"
+T1114.001,Local Email Collection,collection,NO,Primarily local host-based operations,,Medium,19.4,,"Carbanak, QakBot"
+T1125,Video Capture,collection,NO,Primarily local host-based operations,,Rare,18.4,Silence,
+T1074,Data Staged,collection,NO,Primarily local host-based operations,,Rare,18.4,Wizard Spider,
+T1115,Clipboard Data,collection,NO,Primarily local host-based operations,,Rare,18.4,APT38,
+T1657,Financial Theft,impact,NO,Primarily local host-based operations,,Rare,17.2,Malteiro,
+T1565.003,Runtime Data Manipulation,impact,NO,Primarily local host-based operations,,Rare,17.2,APT38,
+T1565.001,Stored Data Manipulation,impact,NO,Primarily local host-based operations,,Rare,17.2,APT38,
+T1491.001,Internal Defacement,impact,NO,Primarily local host-based operations,,Rare,17.2,Lazarus Group,
+T1565.002,Transmitted Data Manipulation,impact,NO,Primarily local host-based operations,,Rare,17.2,APT38,
+T1490,Inhibit System Recovery,impact,NO,Primarily local host-based operations,,Rare,17.2,Wizard Spider,
+T1539,Steal Web Session Cookie,credential-access,NO,Primarily local host-based operations,,Rare,16.8,,QakBot
+T1110.004,Credential Stuffing,credential-access,NO,Primarily local host-based operations,,Rare,16.8,,TrickBot
+T1552.002,Credentials in Registry,credential-access,NO,Primarily local host-based operations,,Rare,16.8,,TrickBot
+T1003,OS Credential Dumping,credential-access,NO,Primarily local host-based operations,,Rare,16.8,,Carbanak
+T1583,Acquire Infrastructure,resource-development,NO,Primarily local host-based operations,,Rare,16.6,Indrik Spider,
+T1588.004,Digital Certificates,resource-development,NO,Primarily local host-based operations,,Rare,16.6,Lazarus Group,
+T1585.001,Social Media Accounts,resource-development,NO,Primarily local host-based operations,,Rare,16.6,Lazarus Group,
+T1588.003,Code Signing Certificates,resource-development,NO,Primarily local host-based operations,,Rare,16.6,Wizard Spider,
+T1570,Lateral Tool Transfer,lateral-movement,NO,Primarily local host-based operations,,Rare,15.8,Wizard Spider,
+T1566.003,Spearphishing via Service,initial-access,NO,Primarily local host-based operations,,Rare,14.6,Lazarus Group,
+T1195.002,Compromise Software Supply Chain,initial-access,NO,Primarily local host-based operations,,Rare,14.6,Cobalt Group,
+T1559.001,Component Object Model,execution,NO,Primarily local host-based operations,,Rare,14.4,,TrickBot
+T1495,Firmware Corruption,impact,NO,Primarily local host-based operations,,Rare,13.2,,TrickBot
+T1590.005,IP Addresses,reconnaissance,NO,Primarily local host-based operations,,Rare,12.2,Andariel,
+T1591,Gather Victim Org Information,reconnaissance,NO,Primarily local host-based operations,,Rare,12.2,Lazarus Group,
+T1589.002,Email Addresses,reconnaissance,NO,Primarily local host-based operations,,Rare,12.2,Lazarus Group,
+T1592.002,Software,reconnaissance,NO,Primarily local host-based operations,,Rare,12.2,Andariel,
+T1030,Data Transfer Size Limits,exfiltration,NO,Primarily local host-based operations,,Rare,7.4,,Carbanak
