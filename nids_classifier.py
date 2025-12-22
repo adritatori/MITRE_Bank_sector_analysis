@@ -46,6 +46,13 @@ def classify_technique(technique_id, name, description):
         'T1557': ('YES', 'Man-in-the-middle attacks', 'ARP spoofing, DNS spoofing, rogue DHCP responses'),
         'T1557.001': ('YES', 'LLMNR/NBT-NS poisoning', 'Spoofed LLMNR/NBT-NS responses, name resolution anomalies'),
         'T1557.002': ('YES', 'ARP cache poisoning', 'Duplicate ARP responses, MAC address conflicts'),
+        # FIXES - Previously misclassified
+        'T1550.002': ('YES', 'Pass the hash authentication over network', 'NTLM authentication attempts, SMB, LDAP traffic'),
+        'T1570': ('YES', 'Lateral tool transfer between systems', 'SMB, RDP, SSH file transfers between internal hosts'),
+        'T1030': ('YES', 'Data exfiltration with size limits', 'Multiple small outbound transfers, staged data uploads'),
+        'T1573.001': ('YES', 'Encrypted C2 network traffic', 'TLS/SSL encrypted sessions, custom encryption over network'),
+        'T1090.002': ('YES', 'External proxy for C2 traffic', 'Connections to proxy servers, forwarded C2 traffic'),
+        'T1132.001': ('YES', 'Encoded C2 network traffic', 'Base64, hex encoded payloads in HTTP/DNS/other protocols'),
     }
 
     # NO - Host-based only
@@ -78,7 +85,9 @@ def classify_technique(technique_id, name, description):
         'T1553.005': ('NO', 'MOTW bypass is local file attribute', ''),
         'T1218.007': ('NO', 'Msiexec execution is local', ''),
         'T1078': ('PARTIAL', 'Valid accounts used locally or remotely', 'Successful auth from unusual locations, off-hours logins'),
+        'T1078.002': ('PARTIAL', 'Domain accounts use network authentication', 'Kerberos, LDAP authentication traffic, AD queries'),
         'T1588.002': ('NO', 'Tool acquisition during reconnaissance', ''),
+        'T1583.001': ('PARTIAL', 'Domain acquisition may involve network activity', 'DNS registration traffic, domain registrar communications'),
         'T1033': ('NO', 'Local user discovery commands', ''),
         'T1027': ('NO', 'File obfuscation is local operation', ''),
         'T1218.010': ('NO', 'Regsvr32 local proxy execution', ''),
