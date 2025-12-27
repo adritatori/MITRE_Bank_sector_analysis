@@ -58,9 +58,16 @@ BANK_ENTITIES = {
         'S0024': 'Dyre',
         'S0030': 'Carbanak',
         'S0484': 'Carberp',
+        'S0386': 'Ursnif',
+        'S0483': 'IcedID',
+        'S0239': 'Bankshot',
+        'S0330': 'Zeus Panda',
+        'S0041': 'Wiper',
         'S0427': 'TrickMo'
     },
-    'campaigns': {},
+    'campaigns': {
+        # No banking-specific campaigns currently documented in MITRE ATT&CK
+    },
     'groups': {
         'G0119': 'Indrik Spider',
         'G0082': 'APT38',
@@ -70,8 +77,9 @@ BANK_ENTITIES = {
         'G0036': 'GCMAN',
         'G1026': 'Malteiro',
         'G0091': 'Silence',
-        'G0102': 'Wizard Spider',
         'G0092': 'TA505',
+        'G0105': 'DarkVishnya',
+        'G0048': 'RTM',
         'G0008': 'Carbanak'
     }
 }
