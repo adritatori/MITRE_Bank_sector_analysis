@@ -1,0 +1,1000 @@
+technique_id,name,consensus,agreement_count,claude,grok,gpt,gemini
+T1140,Deobfuscate/Decode Files or Information,NO,4,NO,NO,NO,NO
+T1070.004,File Deletion,NO,4,NO,NO,NO,NO
+T1027.013,Encrypted/Encoded File,NO,4,NO,NO,NO,NO
+T1036.005,Match Legitimate Resource Name or Location,NO,4,NO,NO,NO,NO
+T1562.001,Disable or Modify Tools,NO,4,NO,NO,NO,NO
+T1218.011,Rundll32,NO,3,NO,NO,NO,PARTIAL
+T1027.010,Command Obfuscation,NO,4,NO,NO,NO,NO
+T1112,Modify Registry,NO,4,NO,NO,NO,NO
+T1027.002,Software Packing,NO,3,NO,NO,NO,PARTIAL
+T1553.002,Code Signing,NO,4,NO,NO,NO,NO
+T1105,Ingress Tool Transfer,NO_CONSENSUS,0,PARTIAL,PARTIAL,YES,YES
+T1543.003,Windows Service,NO,4,NO,NO,NO,NO
+T1071.001,Web Protocols,YES,4,YES,YES,YES,YES
+T1057,Process Discovery,NO,4,NO,NO,NO,NO
+T1082,System Information Discovery,NO,4,NO,NO,NO,NO
+T1204.002,Malicious File,NO,4,NO,NO,NO,NO
+T1059.003,Windows Command Shell,NO,4,NO,NO,NO,NO
+T1059.005,Visual Basic,NO,4,NO,NO,NO,NO
+T1059.001,PowerShell,NO,4,NO,NO,NO,NO
+T1055,Process Injection,NO,4,NO,NO,NO,NO
+T1547.001,Registry Run Keys / Startup Folder,NO,4,NO,NO,NO,NO
+T1218.007,Msiexec,NO_CONSENSUS,0,NO,NO,PARTIAL,PARTIAL
+T1053.005,Scheduled Task,NO,4,NO,NO,NO,NO
+T1562.004,Disable or Modify System Firewall,NO,3,PARTIAL,NO,NO,NO
+T1518.001,Security Software Discovery,NO,4,NO,NO,NO,NO
+T1106,Native API,NO,4,NO,NO,NO,NO
+T1566.001,Spearphishing Attachment,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1055.001,Dynamic-link Library Injection,NO,4,NO,NO,NO,NO
+T1553.005,Mark-of-the-Web Bypass,NO,4,NO,NO,NO,NO
+T1070.006,Timestomp,NO,4,NO,NO,NO,NO
+T1012,Query Registry,NO,4,NO,NO,NO,NO
+T1588.002,Tool,NO,3,NO,NO,NO,YES
+T1027,Obfuscated Files or Information,NO,3,NO,NO,NO,PARTIAL
+T1564.001,Hidden Files and Directories,NO,4,NO,NO,NO,NO
+T1218.010,Regsvr32,NO,3,NO,NO,NO,PARTIAL
+T1218.001,Compiled HTML File,NO,4,NO,NO,NO,NO
+T1218.005,Mshta,NO_CONSENSUS,0,NO,NO,PARTIAL,PARTIAL
+T1036.003,Rename Legitimate Utilities,NO,4,NO,NO,NO,NO
+T1036.004,Masquerade Task or Service,NO,4,NO,NO,NO,NO
+T1070.001,Clear Windows Event Logs,NO,4,NO,NO,NO,NO
+T1083,File and Directory Discovery,NO,4,NO,NO,NO,NO
+T1005,Data from Local System,NO,4,NO,NO,NO,NO
+T1027.003,Steganography,NO_CONSENSUS,0,PARTIAL,NO,NO,PARTIAL
+T1027.009,Embedded Payloads,NO,4,NO,NO,NO,NO
+T1070,Indicator Removal,NO,4,NO,NO,NO,NO
+T1078,Valid Accounts,PARTIAL,3,PARTIAL,NO,PARTIAL,PARTIAL
+T1135,Network Share Discovery,YES,3,PARTIAL,YES,YES,YES
+T1571,Non-Standard Port,YES,3,YES,PARTIAL,YES,YES
+T1033,System Owner/User Discovery,NO,4,NO,NO,NO,NO
+T1219,Remote Access Tools,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1049,System Network Connections Discovery,NO,4,NO,NO,NO,NO
+T1059.007,JavaScript,NO,4,NO,NO,NO,NO
+T1564.003,Hidden Window,NO,4,NO,NO,NO,NO
+T1574.001,DLL,NO,4,NO,NO,NO,NO
+T1070.003,Clear Command History,NO,4,NO,NO,NO,NO
+T1480.002,Mutual Exclusion,NO,4,NO,NO,NO,NO
+T1620,Reflective Code Loading,NO,4,NO,NO,NO,NO
+T1218,System Binary Proxy Execution,NO,3,NO,NO,NO,PARTIAL
+T1218.003,CMSTP,NO_CONSENSUS,0,NO,NO,PARTIAL,PARTIAL
+T1220,XSL Script Processing,NO_CONSENSUS,0,NO,NO,PARTIAL,PARTIAL
+T1036.006,Space after Filename,NO,4,NO,NO,NO,NO
+T1027.007,Dynamic API Resolution,NO,4,NO,NO,NO,NO
+T1218.008,Odbcconf,NO,3,NO,NO,NO,PARTIAL
+T1562.013,Disable or Modify Network Device Firewall,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1562.003,Impair Command History Logging,NO,4,NO,NO,NO,NO
+T1202,Indirect Command Execution,NO,4,NO,NO,NO,NO
+T1016,System Network Configuration Discovery,NO,4,NO,NO,NO,NO
+T1018,Remote System Discovery,NO_CONSENSUS,0,PARTIAL,YES,YES,PARTIAL
+T1055.012,Process Hollowing,NO,4,NO,NO,NO,NO
+T1189,Drive-by Compromise,NO_CONSENSUS,0,PARTIAL,YES,PARTIAL,YES
+T1046,Network Service Discovery,YES,4,YES,YES,YES,YES
+T1021.001,Remote Desktop Protocol,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1027.001,Binary Padding,NO,4,NO,NO,NO,NO
+T1027.005,Indicator Removal from Tools,NO,4,NO,NO,NO,NO
+T1027.006,HTML Smuggling,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1036.008,Masquerade File Type,NO,4,NO,NO,NO,NO
+T1014,Rootkit,NO,4,NO,NO,NO,NO
+T1027.011,Fileless Storage,NO,4,NO,NO,NO,NO
+T1036,Masquerading,NO,4,NO,NO,NO,NO
+T1548.002,Bypass User Account Control,NO,4,NO,NO,NO,NO
+T1497.003,Time Based Checks,NO,4,NO,NO,NO,NO
+T1573.001,Symmetric Cryptography,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1542.003,Bootkit,NO,4,NO,NO,NO,NO
+T1090.002,External Proxy,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1047,Windows Management Instrumentation,PARTIAL,3,PARTIAL,YES,PARTIAL,PARTIAL
+T1555.003,Credentials from Web Browsers,NO,4,NO,NO,NO,NO
+T1007,System Service Discovery,NO,4,NO,NO,NO,NO
+T1566.002,Spearphishing Link,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1056.001,Keylogging,NO,4,NO,NO,NO,NO
+T1203,Exploitation for Client Execution,NO_CONSENSUS,0,PARTIAL,NO,YES,YES
+T1204.001,Malicious Link,NO_CONSENSUS,0,PARTIAL,YES,PARTIAL,YES
+T1041,Exfiltration Over C2 Channel,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1074.001,Local Data Staging,NO,4,NO,NO,NO,NO
+T1134.002,Create Process with Token,NO,4,NO,NO,NO,NO
+T1497,Virtualization/Sandbox Evasion,NO,4,NO,NO,NO,NO
+T1497.001,System Checks,NO,4,NO,NO,NO,NO
+T1132.001,Standard Encoding,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1185,Browser Session Hijacking,NO_CONSENSUS,0,NO,NO,PARTIAL,PARTIAL
+T1124,System Time Discovery,NO,4,NO,NO,NO,NO
+T1614.001,System Language Discovery,NO,4,NO,NO,NO,NO
+T1069,Permission Groups Discovery,NO_CONSENSUS,0,PARTIAL,NO,PARTIAL,NO
+T1113,Screen Capture,NO,4,NO,NO,NO,NO
+T1055.004,Asynchronous Procedure Call,NO,4,NO,NO,NO,NO
+T1055.002,Portable Executable Injection,NO,4,NO,NO,NO,NO
+T1484.001,Group Policy Modification,PARTIAL,3,PARTIAL,NO,PARTIAL,PARTIAL
+T1078.002,Domain Accounts,PARTIAL,3,PARTIAL,NO,PARTIAL,PARTIAL
+T1486,Data Encrypted for Impact,NO_CONSENSUS,0,PARTIAL,NO,NO,PARTIAL
+T1573.002,Asymmetric Cryptography,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1518,Software Discovery,NO,4,NO,NO,NO,NO
+T1482,Domain Trust Discovery,YES,3,PARTIAL,YES,YES,YES
+T1583.001,Domains,NO,3,NO,NO,NO,YES
+T1110,Brute Force,YES,3,YES,PARTIAL,YES,YES
+T1102.002,Bidirectional Communication,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1680,Local Storage Discovery,NO,4,NO,NO,NO,NO
+T1010,Application Window Discovery,NO,4,NO,NO,NO,NO
+T1552.001,Credentials In Files,NO,3,NO,NO,NO,PARTIAL
+T1087.003,Email Account,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,NO
+T1021.004,SSH,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1055.005,Thread Local Storage,NO,4,NO,NO,NO,NO
+T1574.013,KernelCallbackTable,NO,4,NO,NO,NO,NO
+T1056.004,Credential API Hooking,NO,4,NO,NO,NO,NO
+T1087.001,Local Account,NO,4,NO,NO,NO,NO
+T1087.002,Domain Account,NO_CONSENSUS,0,PARTIAL,PARTIAL,YES,YES
+T1001.003,Protocol or Service Impersonation,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1008,Fallback Channels,NO_CONSENSUS,0,YES,PARTIAL,PARTIAL,YES
+T1572,Protocol Tunneling,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1217,Browser Information Discovery,NO,4,NO,NO,NO,NO
+T1003.001,LSASS Memory,NO,4,NO,NO,NO,NO
+T1569.002,Service Execution,NO,3,NO,NO,PARTIAL,NO
+T1559.002,Dynamic Data Exchange,NO,4,NO,NO,NO,NO
+T1068,Exploitation for Privilege Escalation,NO,4,NO,NO,NO,NO
+T1485,Data Destruction,NO,3,NO,NO,NO,PARTIAL
+T1561.002,Disk Structure Wipe,NO,4,NO,NO,NO,NO
+T1529,System Shutdown/Reboot,NO,4,NO,NO,NO,NO
+T1489,Service Stop,NO,4,NO,NO,NO,NO
+T1568.002,Domain Generation Algorithms,YES,3,YES,PARTIAL,YES,YES
+T1090.003,Multi-hop Proxy,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1090,Proxy,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1585.002,Email Accounts,NO,3,NO,NO,NO,YES
+T1588.001,Malware,NO,3,NO,NO,NO,YES
+T1584.004,Server,NO,4,NO,NO,NO,NO
+T1587.001,Malware,NO,4,NO,NO,NO,NO
+T1071.004,DNS,YES,3,YES,YES,PARTIAL,YES
+T1016.001,Internet Connection Discovery,YES,3,YES,YES,NO,YES
+T1555,Credentials from Password Stores,NO,4,NO,NO,NO,NO
+T1120,Peripheral Device Discovery,NO,4,NO,NO,NO,NO
+T1090.001,Internal Proxy,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1102.001,Dead Drop Resolver,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1069.001,Local Groups,NO,4,NO,NO,NO,NO
+T1104,Multi-Stage Channels,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1219.002,Remote Desktop Software,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1555.005,Password Managers,NO,4,NO,NO,NO,NO
+T1568.001,Fast Flux DNS,YES,3,YES,PARTIAL,YES,YES
+T1136.001,Local Account,NO,4,NO,NO,NO,NO
+T1021.005,VNC,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1040,Network Sniffing,NO,4,NO,NO,NO,NO
+T1115,Clipboard Data,NO,4,NO,NO,NO,NO
+T1072,Software Deployment Tools,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1098,Account Manipulation,PARTIAL,3,PARTIAL,PARTIAL,NO,PARTIAL
+T1547.009,Shortcut Modification,NO,4,NO,NO,NO,NO
+T1037.001,Logon Script (Windows),NO,3,NO,NO,NO,PARTIAL
+T1053.003,Cron,NO,4,NO,NO,NO,NO
+T1132,Data Encoding,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1095,Non-Application Layer Protocol,YES,4,YES,YES,YES,YES
+T1132.002,Non-Standard Encoding,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1559.001,Component Object Model,NO,3,NO,NO,NO,PARTIAL
+T1558.003,Kerberoasting,NO_CONSENSUS,0,PARTIAL,YES,PARTIAL,YES
+T1505.003,Web Shell,NO_CONSENSUS,0,PARTIAL,PARTIAL,YES,YES
+T1110.003,Password Spraying,YES,3,YES,PARTIAL,YES,YES
+T1136,Create Account,NO,3,NO,NO,NO,PARTIAL
+T1114.001,Local Email Collection,NO,4,NO,NO,NO,NO
+T1557.001,LLMNR/NBT-NS Poisoning and SMB Relay,YES,4,YES,YES,YES,YES
+T1560,Archive Collected Data,NO,4,NO,NO,NO,NO
+T1125,Video Capture,NO,4,NO,NO,NO,NO
+T1560.002,Archive via Library,NO,4,NO,NO,NO,NO
+T1560.003,Archive via Custom Method,NO,4,NO,NO,NO,NO
+T1565.001,Stored Data Manipulation,NO,4,NO,NO,NO,NO
+T1565.003,Runtime Data Manipulation,NO,4,NO,NO,NO,NO
+T1565.002,Transmitted Data Manipulation,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1561.001,Disk Content Wipe,NO,4,NO,NO,NO,NO
+T1657,Financial Theft,NO_CONSENSUS,0,PARTIAL,NO,NO,PARTIAL
+T1491.001,Internal Defacement,NO,4,NO,NO,NO,NO
+T1583,Acquire Infrastructure,NO,4,NO,NO,NO,NO
+T1588.004,Digital Certificates,NO,4,NO,NO,NO,NO
+T1583.006,Web Services,NO,4,NO,NO,NO,NO
+T1608.001,Upload Malware,NO_CONSENSUS,0,NO,NO,PARTIAL,YES
+T1585.001,Social Media Accounts,NO,4,NO,NO,NO,NO
+T1091,Replication Through Removable Media,NO,4,NO,NO,NO,NO
+T1059,Command and Scripting Interpreter,NO,4,NO,NO,NO,NO
+T1110.004,Credential Stuffing,YES,3,YES,PARTIAL,YES,YES
+T1539,Steal Web Session Cookie,NO_CONSENSUS,0,NO,NO,PARTIAL,PARTIAL
+T1003,OS Credential Dumping,NO,4,NO,NO,NO,NO
+T1552.002,Credentials in Registry,NO,4,NO,NO,NO,NO
+T1210,Exploitation of Remote Services,YES,4,YES,YES,YES,YES
+T1200,Hardware Additions,NO,3,NO,NO,NO,PARTIAL
+T1566.003,Spearphishing via Service,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1195.002,Compromise Software Supply Chain,NO,3,NO,NO,NO,YES
+T1021.002,SMB/Windows Admin Shares,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1119,Automated Collection,NO,3,PARTIAL,NO,NO,NO
+T1495,Firmware Corruption,NO,4,NO,NO,NO,NO
+T1592.002,Software,NO,3,NO,NO,NO,PARTIAL
+T1590.005,IP Addresses,NO,3,NO,NO,NO,YES
+T1048.003,Exfiltration Over Unencrypted Non-C2 Protocol,YES,4,YES,YES,YES,YES
+T1590,Gather Victim Network Information,NO_CONSENSUS,0,NO,NO,YES,YES
+T1591,Gather Victim Org Information,NO,3,NO,NO,NO,YES
+T1589.002,Email Addresses,NO,3,NO,NO,NO,YES
+T1567.002,Exfiltration to Cloud Storage,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1080,Taint Shared Content,PARTIAL,3,PARTIAL,PARTIAL,PARTIAL,YES
+T1048.002,Exfiltration Over Asymmetric Encrypted Non-C2 Protocol,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+T1030,Data Transfer Size Limits,PARTIAL,4,PARTIAL,PARTIAL,PARTIAL,PARTIAL
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
+,,,4,,,,
