@@ -1,0 +1,54 @@
+PER MODEL STATISTICS
+============================================================
+
+Claude:
+  YES:       15 (  7.1%)
+  NO:       141 ( 67.1%)
+  PARTIAL:   54 ( 25.7%)
+  Total:    210
+
+Grok:
+  YES:       15 (  7.1%)
+  NO:       151 ( 71.9%)
+  PARTIAL:   44 ( 21.0%)
+  Total:    210
+
+GPT:
+  YES:       20 (  9.5%)
+  NO:       139 ( 66.2%)
+  PARTIAL:   51 ( 24.3%)
+  Total:    210
+
+Gemini:
+  YES:       54 ( 25.7%)
+  NO:       116 ( 55.2%)
+  PARTIAL:   40 ( 19.0%)
+  Total:    210
+
+
+CONSENSUS STATISTICS (3/4 Majority Rule)
+============================================================
+
+Total Banking-Sector Techniques Analyzed: 210
+
+Consensus Results:
+  YES (Detectable):          16 (  7.6%)
+  NO (Not Detectable):      135 ( 64.3%)
+  PARTIAL (Conditional):     38 ( 18.1%)
+  NO_CONSENSUS (2-2 tie):    21 ( 10.0%)
+
+Agreement Levels:
+  4/4 models agree:   129 ( 61.4%)
+  3/4 models agree:    60 ( 28.6%)
+  2-2 split:            0 (  0.0%)
+
+
+KEY INSIGHTS
+============================================================
+
+• High Confidence Classifications (3+ models agree): 189 (90.0%)
+• Detectable Techniques (YES + PARTIAL): 54 (25.7%)
+• Not Detectable Techniques: 135 (64.3%)
+
+• Most Optimistic Model (most YES): Gemini (54 YES)
+• Most Conservative Model (most NO): Grok (151 NO)
