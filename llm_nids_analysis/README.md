@@ -15,6 +15,7 @@ Four Large Language Models (Claude, Grok, GPT, and Gemini) were asked to evaluat
 - **Total Techniques Analyzed**: 210 (banking-sector specific)
 - **High Confidence Rate**: 90.0% (3+ models agree)
 - **Perfect Agreement**: 61.4% (all 4 models agree)
+- **2-2 Splits (Even Disagreement)**: 10.0% (21 techniques)
 - **Detectable Techniques**: 25.7% (YES + PARTIAL)
 - **Not Detectable**: 64.3%
 
@@ -32,16 +33,22 @@ Four Large Language Models (Claude, Grok, GPT, and Gemini) were asked to evaluat
 2. **01_per_model_distribution.png** - Individual model classification breakdowns
 3. **02_model_agreement_matrix.png** - Heatmap of inter-model agreement rates
 4. **03_consensus_analysis.png** - Consensus distribution and agreement levels
-5. **05_consensus_by_tactic.png** - Consensus breakdown by MITRE ATT&CK tactic
+5. **04_disagreement_patterns.png** - Analysis of 2-2 split patterns
+6. **05_consensus_by_tactic.png** - Consensus breakdown by MITRE ATT&CK tactic
+7. **06_2-2_split_analysis.png** - Detailed 2-2 split pattern distribution
+8. **07_2-2_split_heatmap.png** - Heatmap of all 21 techniques with even disagreement
 
 ### Data Files
 
 - **consensus_classifications.csv** - Complete dataset with consensus results for each technique
+- **2-2_splits.csv** - Subset of 21 techniques where LLMs were evenly split (2-2)
+- **2-2_split_analysis.md** - Detailed report on 2-2 split cases
 - **summary_report.txt** - Detailed statistical summary report
 
-## Analysis Script
+## Analysis Scripts
 
-**analyze_llm_classifications.py** - Python script that performs the analysis and generates all visualizations
+1. **analyze_llm_classifications.py** - Main analysis script that generates consensus classifications and visualizations
+2. **visualize_2-2_splits.py** - Specialized script for analyzing the 21 techniques with even disagreement
 
 ### Requirements
 - pandas
@@ -51,7 +58,11 @@ Four Large Language Models (Claude, Grok, GPT, and Gemini) were asked to evaluat
 
 ### Usage
 ```bash
+# Run full analysis
 python3 analyze_llm_classifications.py
+
+# Generate 2-2 split visualizations
+python3 visualize_2-2_splits.py
 ```
 
 ## Color Scheme
@@ -62,6 +73,32 @@ All visualizations use a professional monotone color scheme:
 - **Medium Blue** (#4a6fa5) - PARTIAL classifications
 
 This matches the aesthetic of previous MITRE bank paper visualizations.
+
+## 2-2 Split Analysis (Even Disagreement)
+
+**21 techniques** (10.0% of total) show **even disagreement** where 2 LLMs agreed with each other but the other 2 disagreed. These cases represent the highest uncertainty in detectability assessment.
+
+### Most Common Split Patterns
+
+1. **NO-NO vs PARTIAL-PARTIAL** (10 cases, 47.6%)
+   - Disagreement on whether ANY detection is possible
+   - Examples: Msiexec, Mshta, CMSTP, Browser Session Hijacking
+
+2. **PARTIAL-PARTIAL vs YES-YES** (8 cases, 38.1%)
+   - All agree detection is possible, but differ on confidence level
+   - Examples: Ingress Tool Transfer, Web Shell, Domain Account Enumeration
+
+3. **Other patterns** (3 cases, 14.3%)
+   - NO-NO vs YES-YES, NO-PARTIAL vs YES-YES, and three-way splits
+
+### Key Insights from 2-2 Splits
+
+- **LOLBin Execution**: 5 signed binary proxy execution techniques (T1218.x) show splits - uncertainty in detecting legitimate tool abuse
+- **Model Pairing**: Claude + Grok tend to align (conservative), while GPT + Gemini align (optimistic)
+- **Banking Priority**: These 21 techniques need empirical testing to resolve uncertainty
+- **Detection Dependency**: Splits often reflect differences in assumed security stack maturity
+
+See **2-2_split_analysis.md** for detailed breakdown of all 21 cases.
 
 ## Insights
 
