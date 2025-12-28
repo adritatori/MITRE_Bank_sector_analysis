@@ -132,7 +132,8 @@ def calculate_consensus(row, models):
     if most_common[1] >= 3:  # At least 3 models agree
         return most_common[0], most_common[1]
     else:
-        return 'NO_CONSENSUS', 0
+        # No consensus - return the max agreement count (usually 2 for 2-2 splits)
+        return 'NO_CONSENSUS', most_common[1]
 
 def analyze_consensus(df, models, output_dir):
     """Analyze consensus among models using 3/4 majority rule"""
@@ -239,6 +240,173 @@ def analyze_disagreement_patterns(df, models, consensus_df, output_dir):
         plt.savefig(f'{output_dir}/04_disagreement_patterns.png', dpi=300, bbox_inches='tight')
         print(f"✓ Saved: 04_disagreement_patterns.png")
         plt.close()
+
+def analyze_2_2_splits_detailed(df, models, consensus_df, output_dir):
+    """Detailed analysis of 2-2 split cases"""
+    # Find all NO_CONSENSUS cases
+    no_consensus = consensus_df[consensus_df['consensus'] == 'NO_CONSENSUS'].copy()
+
+    if len(no_consensus) == 0:
+        return
+
+    # Analyze split patterns
+    split_data = []
+    for idx, row in no_consensus.iterrows():
+        classifications = {
+            'Claude': row['claude'],
+            'Grok': row['grok'],
+            'GPT': row['gpt'],
+            'Gemini': row['gemini']
+        }
+        count = Counter(classifications.values())
+
+        # Determine split type
+        if len(count) == 2 and list(count.values()) == [2, 2]:
+            split_type = f"{list(count.keys())[0]} vs {list(count.keys())[1]}"
+        else:
+            split_type = "Mixed"
+
+        split_data.append({
+            'technique_id': row['technique_id'],
+            'name': row['name'],
+            'split_type': split_type,
+            'pattern': dict(count),
+            **classifications
+        })
+
+    split_df = pd.DataFrame(split_data)
+
+    # Save detailed CSV
+    split_df.to_csv(f'{output_dir}/2-2_split_techniques.csv', index=False)
+    print(f"✓ Saved: 2-2_split_techniques.csv")
+
+    # Create visualization
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
+
+    # Left plot: Split type distribution
+    split_type_counts = split_df['split_type'].value_counts()
+    colors_split = [COLORS['tertiary']] * len(split_type_counts)
+
+    bars1 = ax1.barh(range(len(split_type_counts)), split_type_counts.values,
+                     color=colors_split, edgecolor=COLORS['gray_dark'], linewidth=1.5)
+    ax1.set_yticks(range(len(split_type_counts)))
+    ax1.set_yticklabels(split_type_counts.index, fontsize=10)
+
+    for i, bar in enumerate(bars1):
+        width = bar.get_width()
+        ax1.text(width, bar.get_y() + bar.get_height()/2.,
+                f' {int(width)}', ha='left', va='center',
+                fontsize=10, fontweight='bold')
+
+    ax1.set_title('2-2 Split Types', fontsize=13, fontweight='bold', color=COLORS['primary'])
+    ax1.set_xlabel('Number of Techniques', fontsize=11)
+    ax1.grid(axis='x', alpha=0.3)
+
+    # Right plot: Model pair agreement in split cases
+    model_pairs = {
+        'Claude-Grok': 0,
+        'Claude-GPT': 0,
+        'Claude-Gemini': 0,
+        'Grok-GPT': 0,
+        'Grok-Gemini': 0,
+        'GPT-Gemini': 0
+    }
+
+    for idx, row in split_df.iterrows():
+        if row['Claude'] == row['Grok']:
+            model_pairs['Claude-Grok'] += 1
+        if row['Claude'] == row['GPT']:
+            model_pairs['Claude-GPT'] += 1
+        if row['Claude'] == row['Gemini']:
+            model_pairs['Claude-Gemini'] += 1
+        if row['Grok'] == row['GPT']:
+            model_pairs['Grok-GPT'] += 1
+        if row['Grok'] == row['Gemini']:
+            model_pairs['Grok-Gemini'] += 1
+        if row['GPT'] == row['Gemini']:
+            model_pairs['GPT-Gemini'] += 1
+
+    pairs = list(model_pairs.keys())
+    counts = list(model_pairs.values())
+
+    bars2 = ax2.bar(range(len(pairs)), counts, color=COLORS['secondary'],
+                    edgecolor=COLORS['gray_dark'], linewidth=1.5)
+    ax2.set_xticks(range(len(pairs)))
+    ax2.set_xticklabels(pairs, rotation=45, ha='right')
+
+    for bar in bars2:
+        height = bar.get_height()
+        ax2.text(bar.get_x() + bar.get_width()/2., height,
+                f'{int(height)}', ha='center', va='bottom',
+                fontsize=10, fontweight='bold')
+
+    ax2.set_title('Model Pair Agreements in Split Cases', fontsize=13,
+                 fontweight='bold', color=COLORS['primary'])
+    ax2.set_ylabel('Agreement Count', fontsize=11)
+    ax2.grid(axis='y', alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(f'{output_dir}/06_2-2_split_analysis.png', dpi=300, bbox_inches='tight')
+    print(f"✓ Saved: 06_2-2_split_analysis.png")
+    plt.close()
+
+    # Create a detailed table visualization
+    fig, ax = plt.subplots(figsize=(16, max(10, len(split_df) * 0.4)))
+
+    # Prepare data for table
+    table_data = []
+    for idx, row in split_df.head(20).iterrows():  # Show top 20
+        table_data.append([
+            row['technique_id'],
+            row['name'][:30] + '...' if len(row['name']) > 30 else row['name'],
+            row['Claude'],
+            row['Grok'],
+            row['GPT'],
+            row['Gemini']
+        ])
+
+    # Create table
+    table = ax.table(cellText=table_data,
+                    colLabels=['Technique ID', 'Name', 'Claude', 'Grok', 'GPT', 'Gemini'],
+                    cellLoc='left',
+                    loc='center',
+                    colWidths=[0.12, 0.35, 0.13, 0.13, 0.13, 0.14])
+
+    table.auto_set_font_size(False)
+    table.set_fontsize(9)
+    table.scale(1, 2)
+
+    # Color code the cells
+    for i in range(len(table_data)):
+        for j in range(2, 6):  # Model columns
+            cell = table[(i+1, j)]
+            value = table_data[i][j]
+            if value == 'YES':
+                cell.set_facecolor(COLORS['yes'])
+                cell.set_text_props(color='white', weight='bold')
+            elif value == 'NO':
+                cell.set_facecolor(COLORS['no'])
+                cell.set_text_props(color='white', weight='bold')
+            elif value == 'PARTIAL':
+                cell.set_facecolor(COLORS['partial'])
+                cell.set_text_props(color='white', weight='bold')
+
+    # Header styling
+    for j in range(6):
+        cell = table[(0, j)]
+        cell.set_facecolor(COLORS['primary'])
+        cell.set_text_props(color='white', weight='bold')
+
+    ax.axis('off')
+    ax.set_title(f'2-2 Split Techniques Detail (Showing {min(20, len(split_df))} of {len(split_df)})',
+                fontsize=14, fontweight='bold', color=COLORS['primary'], pad=20)
+
+    plt.tight_layout()
+    plt.savefig(f'{output_dir}/07_2-2_split_details.png', dpi=300, bbox_inches='tight')
+    print(f"✓ Saved: 07_2-2_split_details.png")
+    plt.close()
+
+    return split_df
 
 def analyze_by_tactic(df, models, consensus_df, output_dir):
     """Analyze consensus by MITRE ATT&CK tactic"""
@@ -463,6 +631,7 @@ def main():
     agreement_matrix = analyze_model_agreement(df, models, output_dir)
     consensus_df = analyze_consensus(df, models, output_dir)
     analyze_disagreement_patterns(df, models, consensus_df, output_dir)
+    analyze_2_2_splits_detailed(df, models, consensus_df, output_dir)
     analyze_by_tactic(df, models, consensus_df, output_dir)
     create_overview_visualization(df, models, consensus_df, stats, output_dir)
     generate_summary_stats(df, models, consensus_df, stats, output_dir)
@@ -478,7 +647,10 @@ def main():
     print("  • 03_consensus_analysis.png - Consensus results and agreement levels")
     print("  • 04_disagreement_patterns.png - Analysis of model disagreements")
     print("  • 05_consensus_by_tactic.png - Consensus breakdown by MITRE tactic")
+    print("  • 06_2-2_split_analysis.png - 2-2 split types and model pair agreements")
+    print("  • 07_2-2_split_details.png - Detailed table of 2-2 split techniques")
     print("  • consensus_classifications.csv - Full consensus results dataset")
+    print("  • 2-2_split_techniques.csv - Detailed data on 2-2 split cases")
     print("  • summary_report.txt - Detailed statistical summary")
     print()
 

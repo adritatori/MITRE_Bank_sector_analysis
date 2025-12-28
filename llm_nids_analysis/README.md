@@ -32,11 +32,15 @@ Four Large Language Models (Claude, Grok, GPT, and Gemini) were asked to evaluat
 2. **01_per_model_distribution.png** - Individual model classification breakdowns
 3. **02_model_agreement_matrix.png** - Heatmap of inter-model agreement rates
 4. **03_consensus_analysis.png** - Consensus distribution and agreement levels
-5. **05_consensus_by_tactic.png** - Consensus breakdown by MITRE ATT&CK tactic
+5. **04_disagreement_patterns.png** - Analysis of model disagreement patterns
+6. **05_consensus_by_tactic.png** - Consensus breakdown by MITRE ATT&CK tactic
+7. **06_2-2_split_analysis.png** - 2-2 split types and model pair agreements
+8. **07_2-2_split_details.png** - Detailed table of techniques with 2-2 splits
 
 ### Data Files
 
 - **consensus_classifications.csv** - Complete dataset with consensus results for each technique
+- **2-2_split_techniques.csv** - Detailed data on the 21 techniques with 2-2 splits
 - **summary_report.txt** - Detailed statistical summary report
 
 ## Analysis Script
@@ -72,6 +76,13 @@ This matches the aesthetic of previous MITRE bank paper visualizations.
 3. **Model Variation**: Gemini tends to be more optimistic about detectability (25.7% YES), while Grok is more conservative (71.9% NO). Claude and GPT fall in the middle.
 
 4. **Network-Based Techniques**: About 1/4 (25.7%) of techniques produce detectable or conditionally detectable network artifacts (primarily C2 communications, file transfers, and web protocols).
+
+5. **2-2 Splits (Contentious Techniques)**: 21 techniques (10.0%) had no consensus due to 2-2 splits. Common patterns include:
+   - **PARTIAL vs YES** (9 techniques): Techniques like Ingress Tool Transfer, Remote System Discovery, Web Shell
+   - **NO vs PARTIAL** (9 techniques): Techniques like Msiexec, CMSTP, Browser Session Hijacking
+   - **Other splits** (3 techniques): Including NO vs YES and mixed 3-way splits
+
+   These splits often occur when detectability depends heavily on implementation details or context. For example, "Ingress Tool Transfer" may be detectable (YES) if unencrypted but harder to detect (PARTIAL) when using encrypted channels.
 
 ## Applications
 
