@@ -28,8 +28,16 @@ COLORS = {
 def load_data(csv_path):
     """Load and prepare the CSV data"""
     df = pd.read_csv(csv_path)
-    print(f"Loaded {len(df)} techniques from CSV")
-    return df
+    print(f"Total rows in CSV: {len(df)}")
+
+    # Filter to only rows with LLM classifications
+    df_filtered = df[df['Claude Classification'].notna() &
+                     df['Gork Classification'].notna() &
+                     df['GPT Classification'].notna() &
+                     df['Gemini Classification'].notna()].copy()
+
+    print(f"Techniques with LLM classifications: {len(df_filtered)}")
+    return df_filtered
 
 def get_model_classifications(df):
     """Extract classification columns for each model"""
@@ -291,7 +299,7 @@ def generate_summary_stats(df, models, consensus_df, stats, output_dir):
     agreement_counts = consensus_df['agreement_count'].value_counts()
 
     consensus_stats_text = "\nCONSENSUS STATISTICS (3/4 Majority Rule)\n" + "="*60 + "\n\n"
-    consensus_stats_text += f"Total Techniques Analyzed: {total_techniques}\n\n"
+    consensus_stats_text += f"Total Banking-Sector Techniques Analyzed: {total_techniques}\n\n"
     consensus_stats_text += "Consensus Results:\n"
     consensus_stats_text += f"  YES (Detectable):        {consensus_counts.get('YES', 0):4d} ({consensus_counts.get('YES', 0)/total_techniques*100:5.1f}%)\n"
     consensus_stats_text += f"  NO (Not Detectable):     {consensus_counts.get('NO', 0):4d} ({consensus_counts.get('NO', 0)/total_techniques*100:5.1f}%)\n"
@@ -337,7 +345,7 @@ def create_overview_visualization(df, models, consensus_df, stats, output_dir):
     gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
 
     # Overall title
-    fig.suptitle('LLM NIDS Classification Analysis - Comprehensive Overview',
+    fig.suptitle('LLM NIDS Classification Analysis - Banking Sector (210 Techniques)',
                 fontsize=16, fontweight='bold', color=COLORS['primary'], y=0.98)
 
     # 1. Total techniques count
@@ -437,7 +445,7 @@ def main():
     output_dir = '.'
 
     print("\n" + "="*60)
-    print("LLM NIDS CLASSIFICATION ANALYSIS")
+    print("LLM NIDS CLASSIFICATION ANALYSIS - BANKING SECTOR")
     print("="*60 + "\n")
 
     # Load data

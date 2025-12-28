@@ -12,11 +12,11 @@ Four Large Language Models (Claude, Grok, GPT, and Gemini) were asked to evaluat
 
 ## Key Findings
 
-- **Total Techniques Analyzed**: 999
-- **High Confidence Rate**: 97.9% (3+ models agree)
-- **Perfect Agreement**: 91.9% (all 4 models agree)
-- **Detectable Techniques**: 5.4% (YES + PARTIAL)
-- **Not Detectable**: 13.5%
+- **Total Techniques Analyzed**: 210 (banking-sector specific)
+- **High Confidence Rate**: 90.0% (3+ models agree)
+- **Perfect Agreement**: 61.4% (all 4 models agree)
+- **Detectable Techniques**: 25.7% (YES + PARTIAL)
+- **Not Detectable**: 64.3%
 
 ### Model Characteristics
 
@@ -65,13 +65,13 @@ This matches the aesthetic of previous MITRE bank paper visualizations.
 
 ## Insights
 
-1. **High Model Agreement**: With 97.9% high-confidence classifications, the LLMs show remarkable consistency in evaluating NIDS detectability.
+1. **High Model Agreement**: With 90.0% high-confidence classifications, the LLMs show strong consistency in evaluating NIDS detectability.
 
-2. **Most Techniques Are Not Network-Detectable**: The majority of banking-sector ATT&CK techniques operate locally (file operations, registry modifications, process injection, etc.) and thus leave no network footprint.
+2. **Most Techniques Are Not Network-Detectable**: The majority (64.3%) of banking-sector ATT&CK techniques operate locally (file operations, registry modifications, process injection, etc.) and thus leave no network footprint.
 
-3. **Model Variation**: Gemini tends to be more optimistic about detectability, while Grok is more conservative. Claude and GPT fall in the middle.
+3. **Model Variation**: Gemini tends to be more optimistic about detectability (25.7% YES), while Grok is more conservative (71.9% NO). Claude and GPT fall in the middle.
 
-4. **Network-Based Techniques**: Only ~5% of techniques produce detectable network artifacts (primarily C2 communications, file transfers, and web protocols).
+4. **Network-Based Techniques**: About 1/4 (25.7%) of techniques produce detectable or conditionally detectable network artifacts (primarily C2 communications, file transfers, and web protocols).
 
 ## Applications
 
